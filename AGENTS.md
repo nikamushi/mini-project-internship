@@ -98,3 +98,123 @@ Follow this sequence from `TaskBackend.md`:
 5. Follow the implementation order — don't skip ahead
 
 **Remember:** The `docs/` folder is the single source of truth. When in doubt, check the docs before guessing.
+
+---
+
+# Engineering & Design Workflow (ECC + Impeccable)
+
+This project runs ECC (Everything Claude Code) + Impeccable integrated with OpenCode.
+ECC handles the engineering system; Impeccable is the design/UX specialist.
+Never use both systems redundantly on the same concern.
+
+## Tool Responsibilities
+
+**ECC** — planning, architecture, implementation, testing, debugging, code review,
+verification, security, maintainability. Entry points: `/plan`, `/tdd`, `/code-review`,
+`/security`, `/build-fix`, `/e2e`, `/verify`, `/refactor-clean`, `/orchestrate`.
+
+**Impeccable** — visual design, UX critique, typography, spacing, color, responsive
+design, interaction, animation, accessibility, visual polish. Entry point:
+`/impeccable <command> <target>` (e.g. `/impeccable audit`, `/impeccable critique`,
+`/impeccable polish`, `/impeccable typeset`, `/impeccable layout`, `/impeccable init`).
+
+## Engineering Workflow (complex tasks)
+
+1. Understand — read the relevant `docs/Task*.md`, `docs/API.md`, `docs/Database.md`,
+   `docs/Architecture.md` before writing any code. Never code before understanding
+   architecture and requirements.
+2. Plan — for large changes, write an implementation plan first (use `/plan`).
+3. Implement
+4. Test
+5. Review — self-review from a fresh context (use `/code-review`, `/security`)
+6. Verify — run typecheck/lint/tests/build (`/verify`); fix errors before declaring done.
+
+## Frontend Workflow (UI tasks)
+
+1. Inspect existing UI
+2. Understand the design system (tokens, `DESIGN.md` / `PRODUCT.md` if present)
+3. Identify reusable components
+4. Implement
+5. Run the application
+6. Inspect the result
+7. Use Impeccable for visual/UX audit (`/impeccable audit <target>`, `/impeccable critique`)
+8. Polish (`/impeccable polish`)
+9. Test responsive behavior (`/impeccable adapt`)
+10. Verify accessibility (semantic HTML, contrast, keyboard, focus)
+11. Final code review (ECC)
+
+## Default Frontend Task Workflow
+
+```text
+Requirement
+    ↓
+ECC Planning
+    ↓
+Architecture / component plan
+    ↓
+Implementation
+    ↓
+Run + Test
+    ↓
+Impeccable UI audit
+    ↓
+Visual / UX improvements
+    ↓
+Responsive verification
+    ↓
+Accessibility verification
+    ↓
+ECC code review
+    ↓
+Final verification
+```
+
+## Before Any Frontend Task (inspect first)
+
+- project structure
+- framework
+- styling system
+- component library
+- existing design tokens
+- existing patterns
+- relevant reusable components
+
+Do NOT switch the framework or component library already in use without a strong reason.
+
+## Design Principles
+
+- Use Impeccable as the design/UX specialist.
+- Do NOT produce generic AI-generated dashboard UI.
+- Prioritize: visual hierarchy, typography, spacing, color system, contrast,
+  responsive layout, interaction states, accessibility, consistency,
+  loading/error/empty states, appropriate animation, component reuse.
+- Do NOT add gradients, glassmorphism, excessive rounded cards, excessive shadows,
+  or decorative elements just because they look "AI-like".
+- Use design tokens and reusable components.
+
+## Engineering Principles
+
+- TypeScript
+- component reuse
+- maintainability
+- accessibility
+- responsive design
+- performance
+- semantic HTML
+- clean architecture
+- minimal duplication
+
+Do not create oversized components when they can be reasonably split.
+Do not create abstraction for abstraction's sake.
+
+## Verification Checklist (after implementation)
+
+- run typecheck
+- run lint
+- run tests
+- run build if available
+- verify responsive behavior
+- verify accessibility
+- inspect visual result when browser tooling is available
+
+Fix any errors before declaring the task done.

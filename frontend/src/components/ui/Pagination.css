@@ -1,0 +1,91 @@
+.lc-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.lc-pagination__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 36px;
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: background-color var(--duration-micro) var(--ease-out);
+}
+
+.lc-pagination__btn:hover:not(:disabled) {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-heading);
+}
+
+.lc-pagination__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.lc-pagination__pages {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.lc-pagination__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  transition: background-color var(--duration-micro) var(--ease-out);
+}
+
+.lc-pagination__page:hover:not(.lc-pagination__page--active) {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-heading);
+}
+
+.lc-pagination__page--active {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.lc-pagination__ellipsis {
+  color: var(--color-text-muted);
+  padding-inline: var(--space-1);
+}
+
+.lc-pagination__mobile {
+  display: none;
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .lc-pagination__pages {
+    display: none;
+  }
+
+  .lc-pagination__btn-label {
+    display: none;
+  }
+
+  .lc-pagination__mobile {
+    display: block;
+  }
+
+  .lc-pagination__btn {
+    min-width: 44px;
+    justify-content: center;
+    padding-inline: 0;
+  }
+}

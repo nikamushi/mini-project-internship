@@ -1,0 +1,40 @@
+.lc-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.lc-auth-form__title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  margin: 0;
+}
+
+.lc-auth-form__subtitle {
+  font-size: var(--font-size-body);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.lc-auth-form form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.lc-auth-form__footer {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+.lc-auth-form__link {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.lc-auth-form__link:hover {
+  color: var(--color-primary-hover);
+}

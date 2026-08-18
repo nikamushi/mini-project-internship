@@ -1,0 +1,17 @@
+.lc-footer {
+  margin-top: auto;
+  background-color: var(--color-surface);
+  border-top: var(--border-width) solid var(--border-color);
+}
+
+.lc-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+}
+
+.lc-footer__text {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}

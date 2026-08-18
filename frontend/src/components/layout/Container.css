@@ -1,0 +1,18 @@
+.lc-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .lc-container {
+    padding-inline: var(--container-padding-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lc-container {
+    padding-inline: var(--container-padding-desktop);
+  }
+}

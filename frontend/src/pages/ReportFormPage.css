@@ -1,0 +1,157 @@
+.lc-report-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 760px;
+  padding-block: var(--space-7);
+}
+
+.lc-report-form__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.lc-report-form__title {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  margin: 0;
+}
+
+.lc-report-form form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.lc-report-form__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.lc-report-form__fields > :first-child,
+.lc-report-form__fields > :nth-child(2) {
+  grid-column: span 1;
+}
+
+.lc-report-form__fields > :nth-child(3),
+.lc-report-form__fields > :nth-child(5) {
+  grid-column: span 2;
+}
+
+.lc-report-form__section-title {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-3);
+}
+
+.lc-report-form__images {
+  display: flex;
+  flex-direction: column;
+}
+
+.lc-report-form__existing {
+  margin-top: var(--space-4);
+}
+
+.lc-report-form__existing-label {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  margin: 0 0 var(--space-2);
+}
+
+.lc-report-form__existing-list {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lc-report-form__existing-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 140px;
+}
+
+.lc-report-form__existing-item img {
+  width: 140px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: var(--border-width) solid var(--border-color);
+}
+
+.lc-report-form__remove-image {
+  font-size: var(--font-size-small);
+  color: var(--color-danger-strong);
+  min-height: 32px;
+}
+
+.lc-report-form__remove-image:hover {
+  text-decoration: underline;
+}
+
+.lc-report-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.lc-report-form__review-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-5);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-lg);
+}
+
+.lc-report-form__review-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-2);
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.lc-report-form__review-item:last-child {
+  border-bottom: none;
+}
+
+.lc-report-form__review-item dt {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.lc-report-form__review-item dd {
+  font-size: var(--font-size-body);
+  color: var(--color-text-heading);
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .lc-report-form__fields {
+    grid-template-columns: 1fr;
+  }
+
+  .lc-report-form__fields > :nth-child(n) {
+    grid-column: span 1;
+  }
+
+  .lc-report-form__review-item {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

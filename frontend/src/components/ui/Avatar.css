@@ -1,0 +1,30 @@
+.lc-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary-700);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.lc-avatar--sm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-size-small);
+}
+
+.lc-avatar--md {
+  width: 40px;
+  height: 40px;
+  font-size: var(--font-size-body);
+}
+
+.lc-avatar--lg {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-h4);
+}

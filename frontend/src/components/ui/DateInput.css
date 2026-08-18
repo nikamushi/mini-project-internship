@@ -1,0 +1,38 @@
+.lc-date {
+  display: block;
+  width: 100%;
+  height: var(--input-height);
+  padding-inline: var(--input-padding-x);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--input-radius);
+  color: var(--color-text);
+  font-size: var(--font-size-body);
+  transition: border-color var(--duration-micro) var(--ease-out);
+}
+
+.lc-date:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--border-color-strong);
+}
+
+.lc-date:focus-visible {
+  outline: none;
+  border-color: var(--border-color-focus);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--color-primary-subtle-strong);
+}
+
+.lc-date:disabled {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-muted);
+}
+
+.lc-date--error,
+.lc-date--error:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--color-danger-500);
+}
+
+@media (max-width: 767px) {
+  .lc-date {
+    min-height: var(--input-height-mobile);
+  }
+}

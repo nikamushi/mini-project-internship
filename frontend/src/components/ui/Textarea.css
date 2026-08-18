@@ -1,0 +1,45 @@
+.lc-textarea {
+  display: block;
+  width: 100%;
+  min-height: 112px;
+  padding: var(--space-3) var(--input-padding-x);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--input-radius);
+  color: var(--color-text);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  resize: vertical;
+  transition:
+    border-color var(--duration-micro) var(--ease-out),
+    box-shadow var(--duration-micro) var(--ease-out);
+}
+
+.lc-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.lc-textarea:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--border-color-strong);
+}
+
+.lc-textarea:focus-visible {
+  outline: none;
+  border-color: var(--border-color-focus);
+  box-shadow: 0 0 0 2px var(--color-primary-subtle-strong);
+}
+
+.lc-textarea:disabled {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-muted);
+}
+
+.lc-textarea--error,
+.lc-textarea--error:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--color-danger-500);
+}
+
+.lc-textarea--error:focus-visible {
+  border-color: var(--color-danger-500);
+  box-shadow: 0 0 0 2px var(--color-danger-subtle-strong);
+}

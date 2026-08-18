@@ -1,0 +1,22 @@
+.lc-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.lc-form-field__label {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-heading);
+  line-height: var(--line-height-body);
+}
+
+.lc-form-field__required {
+  color: var(--color-danger-500);
+}
+
+.lc-form-field__helper {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-body);
+}

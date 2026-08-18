@@ -1,0 +1,15 @@
+.lc-form-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-danger-strong);
+  line-height: var(--line-height-body);
+}
+
+.lc-form-error__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-danger-600);
+}
