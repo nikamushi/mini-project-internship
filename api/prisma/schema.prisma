@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  passwordHash String         @map("password_hash")
+  role         String         @default("USER")
+  isActive     Boolean        @default(true) @map("is_active")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  reports      Report[]
+  claims       Claim[]
+  notifications Notification[]
+  activityLogs ActivityLog[]
+
+  @@index([role])
+  @@index([isActive])
+  @@map("users")
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  reports   Report[]
+
+  @@index([isActive])
+  @@map("categories")
+}
+
+model Report {
+  id          Int           @id @default(autoincrement())
+  reporterId  Int           @map("reporter_id")
+  categoryId  Int           @map("category_id")
+  type        String
+  itemName    String        @map("item_name")
+  description String
+  location    String
+  occurredAt  DateTime      @map("occurred_at")
+  status      String        @default("PENDING_VERIFICATION")
+  deletedAt   DateTime?     @map("deleted_at")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+  reporter    User          @relation(fields: [reporterId], references: [id])
+  category    Category      @relation(fields: [categoryId], references: [id])
+  images      ReportImage[]
+  claims      Claim[]
+
+  @@index([reporterId])
+  @@index([categoryId])
+  @@index([type])
+  @@index([status])
+  @@index([location])
+  @@index([createdAt])
+  @@map("reports")
+}
+
+model ReportImage {
+  id        Int      @id @default(autoincrement())
+  reportId  Int      @map("report_id")
+  url       String
+  createdAt DateTime @default(now()) @map("created_at")
+  report    Report   @relation(fields: [reportId], references: [id])
+
+  @@index([reportId])
+  @@map("report_images")
+}
+
+model Claim {
+  id           Int      @id @default(autoincrement())
+  reportId     Int      @map("report_id")
+  claimantId   Int      @map("claimant_id")
+  reason       String
+  evidence     String?
+  status       String   @default("PENDING")
+  reviewReason String?  @map("review_reason")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  report       Report   @relation(fields: [reportId], references: [id])
+  claimant     User     @relation(fields: [claimantId], references: [id])
+
+  @@index([reportId])
+  @@index([claimantId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("claims")
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  type      String
+  title     String
+  message   String
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model ActivityLog {
+  id        Int      @id @default(autoincrement())
+  actorId   Int?     @map("actor_id")
+  action    String
+  entity    String
+  entityId  Int?     @map("entity_id")
+  metadata  String?
+  createdAt DateTime @default(now()) @map("created_at")
+  actor     User?    @relation(fields: [actorId], references: [id])
+
+  @@index([actorId])
+  @@index([entity])
+  @@index([entityId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("activity_logs")
+}

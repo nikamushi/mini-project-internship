@@ -21,9 +21,9 @@ If two docs disagree, the hierarchy wins: `PRD → Design → DesignSystem → A
 
 - **Backend:** Node.js, TypeScript, REST API, Prisma ORM, SQLite
 - **Frontend:** TBD during project setup (see `TaskFrontend.md` FE-001)
-- **Database file:** `backend/data/database.sqlite`
-- **Prisma schema:** `backend/prisma/schema.prisma`
-- **File storage:** Local `backend/uploads/reports/` for MVP
+- **Database file:** `api/data/database.sqlite`
+- **Prisma schema:** `api/prisma/schema.prisma`
+- **File storage:** Local `api/uploads/reports/` for MVP
 
 ## Architecture Pattern
 
