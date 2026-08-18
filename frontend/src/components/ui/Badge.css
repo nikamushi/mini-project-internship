@@ -1,0 +1,54 @@
+.lc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--badge-height);
+  padding-inline: var(--space-2);
+  border-radius: var(--badge-radius);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.lc-badge--lg {
+  height: var(--badge-height-lg);
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-small);
+}
+
+.lc-badge__icon {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.lc-badge--neutral {
+  background-color: var(--color-surface-secondary);
+  border: var(--border-width) solid var(--border-color);
+  color: var(--color-text-secondary);
+}
+
+.lc-badge--primary {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary-700);
+}
+
+.lc-badge--success {
+  background-color: var(--color-success-subtle);
+  color: var(--color-success-strong);
+}
+
+.lc-badge--warning {
+  background-color: var(--color-warning-subtle);
+  color: var(--color-warning-strong);
+}
+
+.lc-badge--danger {
+  background-color: var(--color-danger-subtle);
+  color: var(--color-danger-strong);
+}
+
+.lc-badge--info {
+  background-color: var(--color-info-subtle);
+  color: var(--color-info-strong);
+}

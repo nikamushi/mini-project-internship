@@ -1,0 +1,64 @@
+.lc-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.lc-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lc-table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-secondary);
+  border-bottom: var(--border-width) solid var(--border-color);
+  white-space: nowrap;
+}
+
+.lc-table td {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-body);
+  color: var(--color-text);
+  border-bottom: var(--border-width) solid var(--border-color);
+  vertical-align: middle;
+}
+
+.lc-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.lc-table tbody tr:hover {
+  background-color: var(--color-background);
+}
+
+.lc-table__align--center {
+  text-align: center;
+}
+
+.lc-table__align--right {
+  text-align: right;
+}
+
+.lc-table__sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: inherit;
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.lc-table__sort-btn:hover {
+  color: var(--color-text-heading);
+}
+
+.lc-table__empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-9) var(--space-4);
+}

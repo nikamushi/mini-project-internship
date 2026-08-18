@@ -1,0 +1,230 @@
+/*
+ * FE-002 — Design Tokens
+ * Source: docs/DesignSystem.md (token architecture: primitive → semantic → component)
+ * Light theme only (dark mode bukan MVP, tetapi struktur token mendukung penambahan nanti).
+ */
+
+:root {
+  /* ============================================================
+   * PRIMITIVE TOKENS
+   * ============================================================ */
+
+  /* Color — Primary (institutional blue) */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  /* Color — Neutral */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
+
+  /* Color — Success */
+  --color-success-50: #ecfdf5;
+  --color-success-100: #d1fae5;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+
+  /* Color — Warning */
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+
+  /* Color — Danger */
+  --color-danger-50: #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+
+  /* Color — Info */
+  --color-info-50: #ecfeff;
+  --color-info-100: #cffafe;
+  --color-info-500: #06b6d4;
+  --color-info-600: #0891b2;
+  --color-info-700: #0e7490;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-size-display: 40px;
+  --font-size-h1: 32px;
+  --font-size-h2: 24px;
+  --font-size-h3: 20px;
+  --font-size-h4: 18px;
+  --font-size-body-lg: 16px;
+  --font-size-body: 14px;
+  --font-size-small: 12px;
+  --font-size-caption: 11px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height-heading: 1.25;
+  --line-height-body: 1.55;
+  --line-height-caption: 1.4;
+
+  /* Spacing (base 4px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+
+  /* Border radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Border */
+  --border-width: 1px;
+  --border-color: var(--color-neutral-200);
+  --border-color-strong: var(--color-neutral-300);
+  --border-color-focus: var(--color-primary-500);
+  --focus-ring-width: 2px;
+
+  /* Shadows (minimal) */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-padding-mobile: 16px;
+  --container-padding-tablet: 24px;
+  --container-padding-desktop: 32px;
+
+  /* Motion */
+  --duration-micro: 120ms;
+  --duration-component: 200ms;
+  --duration-modal: 250ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Z-index */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* Icon sizes */
+  --icon-xs: 12px;
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-xl: 32px;
+
+  /* ============================================================
+   * SEMANTIC TOKENS
+   * ============================================================ */
+
+  /* Surfaces */
+  --color-surface: var(--color-neutral-0);
+  --color-surface-secondary: var(--color-neutral-100);
+  --color-background: var(--color-neutral-50);
+  --color-overlay: rgb(2 6 23 / 0.5);
+
+  /* Text */
+  --color-text: var(--color-neutral-700);
+  --color-text-heading: var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-muted: var(--color-neutral-500);
+  --color-text-inverse: var(--color-neutral-0);
+  --color-text-on-primary: var(--color-neutral-0);
+
+  /* Brand / interactive */
+  --color-primary: var(--color-primary-500);
+  --color-primary-hover: var(--color-primary-600);
+  --color-primary-active: var(--color-primary-700);
+  --color-primary-subtle: var(--color-primary-50);
+  --color-primary-subtle-strong: var(--color-primary-100);
+
+  /* Status */
+  --color-success: var(--color-success-500);
+  --color-success-subtle: var(--color-success-50);
+  --color-success-subtle-strong: var(--color-success-100);
+  --color-success-strong: var(--color-success-700);
+  --color-warning: var(--color-warning-500);
+  --color-warning-subtle: var(--color-warning-50);
+  --color-warning-subtle-strong: var(--color-warning-100);
+  --color-warning-strong: var(--color-warning-700);
+  --color-danger: var(--color-danger-500);
+  --color-danger-subtle: var(--color-danger-50);
+  --color-danger-subtle-strong: var(--color-danger-100);
+  --color-danger-strong: var(--color-danger-700);
+  --color-info: var(--color-info-500);
+  --color-info-subtle: var(--color-info-50);
+  --color-info-subtle-strong: var(--color-info-100);
+  --color-info-strong: var(--color-info-700);
+
+  /* Focus */
+  --focus-ring: 2px solid var(--color-primary-500);
+  --focus-offset: 2px;
+
+  /* ============================================================
+   * COMPONENT TOKENS
+   * ============================================================ */
+
+  /* Button */
+  --button-height-sm: 32px;
+  --button-height-md: 40px;
+  --button-height-lg: 48px;
+  --button-radius: var(--radius-md);
+  --button-font-size-sm: var(--font-size-small);
+  --button-font-size-md: var(--font-size-body);
+  --button-font-size-lg: var(--font-size-body);
+
+  /* Input */
+  --input-height: 40px;
+  --input-height-mobile: 48px;
+  --input-radius: var(--radius-md);
+  --input-padding-x: var(--space-3);
+
+  /* Card */
+  --card-padding: var(--space-5);
+  --card-radius: var(--radius-lg);
+
+  /* Badge */
+  --badge-height: 24px;
+  --badge-height-lg: 28px;
+  --badge-radius: var(--radius-full);
+
+  /* Header / Sidebar */
+  --header-height: 64px;
+  --sidebar-width: 248px;
+
+  /* Modal */
+  --modal-radius: var(--radius-lg);
+
+  /* Touch target (mobile) */
+  --touch-target: 44px;
+}

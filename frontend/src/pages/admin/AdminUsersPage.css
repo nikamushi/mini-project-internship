@@ -1,0 +1,17 @@
+.lc-admin-page__user-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.lc-admin-page__user-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.lc-admin-page__user-text .lc-admin-page__muted {
+  font-size: var(--font-size-small);
+  overflow-wrap: anywhere;
+}

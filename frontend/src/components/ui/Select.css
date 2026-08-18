@@ -1,0 +1,57 @@
+.lc-select__wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.lc-select {
+  display: block;
+  width: 100%;
+  height: var(--input-height);
+  padding-inline: var(--input-padding-x);
+  padding-right: var(--space-7);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--input-radius);
+  color: var(--color-text);
+  font-size: var(--font-size-body);
+  appearance: none;
+  cursor: pointer;
+  transition: border-color var(--duration-micro) var(--ease-out);
+}
+
+.lc-select:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--border-color-strong);
+}
+
+.lc-select:focus-visible {
+  outline: none;
+  border-color: var(--border-color-focus);
+  box-shadow: 0 0 0 2px var(--color-primary-subtle-strong);
+}
+
+.lc-select:disabled {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.lc-select--error,
+.lc-select--error:hover:not(:disabled):not(:focus-visible) {
+  border-color: var(--color-danger-500);
+}
+
+.lc-select__chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  transform: translateY(-50%);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .lc-select {
+    min-height: var(--input-height-mobile);
+  }
+}

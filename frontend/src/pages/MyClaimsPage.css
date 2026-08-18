@@ -1,0 +1,26 @@
+.lc-my-claims {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-block: var(--space-7);
+}
+
+.lc-my-claims__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.lc-my-claims__title {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  margin: 0;
+}
+
+.lc-my-claims__title--muted {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-regular);
+}

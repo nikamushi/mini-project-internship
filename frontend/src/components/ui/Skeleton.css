@@ -1,0 +1,21 @@
+.lc-skeleton {
+  display: inline-block;
+  background-color: var(--color-neutral-200);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-neutral-200) 0%,
+    var(--color-neutral-100) 50%,
+    var(--color-neutral-200) 100%
+  );
+  background-size: 200% 100%;
+  animation: lc-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes lc-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
