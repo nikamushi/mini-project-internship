@@ -113,16 +113,16 @@ export function AdminClaimDetailPage() {
                 <dt>Diajukan Pada</dt>
                 <dd>{formatDateTime(claim.createdAt)}</dd>
               </div>
-              {claim.reviewedAt ? (
+              {claim.status === 'APPROVED' || claim.status === 'REJECTED' ? (
                 <div className="lc-admin-page__detail-item">
                   <dt>Ditinjau Pada</dt>
-                  <dd>{formatDateTime(claim.reviewedAt)}</dd>
+                  <dd>{formatDateTime(claim.updatedAt)}</dd>
                 </div>
               ) : null}
             </dl>
 
             <h3 className="lc-admin-page__section-title">Alasan Klaim</h3>
-            <p className="lc-admin-page__description">{claim.description}</p>
+            <p className="lc-admin-page__description">{claim.reason}</p>
 
             {claim.evidence ? (
               <>
@@ -131,10 +131,10 @@ export function AdminClaimDetailPage() {
               </>
             ) : null}
 
-            {claim.reason ? (
+            {claim.reviewReason ? (
               <>
                 <h3 className="lc-admin-page__section-title">Alasan Keputusan</h3>
-                <p className="lc-admin-page__description">{claim.reason}</p>
+                <p className="lc-admin-page__description">{claim.reviewReason}</p>
               </>
             ) : null}
           </section>
@@ -147,7 +147,7 @@ export function AdminClaimDetailPage() {
                   <dt>Barang</dt>
                   <dd>
                     <Link to={`/admin/reports/${report.id}`} className="lc-admin-page__link">
-                      {report.title}
+                      {report.itemName}
                     </Link>
                   </dd>
                 </div>

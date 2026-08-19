@@ -21,7 +21,7 @@ import { UnsavedChangesGuard } from '@/hooks/UnsavedChangesGuard'
 import './ClaimFormPage.css'
 
 const claimSchema = z.object({
-  description: z.string().trim().min(10, 'Alasan klaim minimal 10 karakter.'),
+  reason: z.string().trim().min(10, 'Alasan klaim minimal 10 karakter.'),
   evidence: z.string().trim().optional().or(z.literal('')),
 })
 
@@ -43,7 +43,7 @@ export function ClaimFormPage() {
 
   const { register, handleSubmit, formState, setError } = useForm<ClaimFormValues>({
     resolver: zodResolver(claimSchema),
-    defaultValues: { description: '', evidence: '' },
+    defaultValues: { reason: '', evidence: '' },
   })
 
   const claimable = reportQuery.data
@@ -55,7 +55,7 @@ export function ClaimFormPage() {
   const claimMutation = useMutation({
     mutationFn: (values: ClaimFormValues) =>
       claimService.create(id, {
-        description: values.description,
+        reason: values.reason,
         evidence: values.evidence || undefined,
       }),
     onSuccess: (claim) => {
@@ -68,7 +68,7 @@ export function ClaimFormPage() {
       const message = mapFieldErrors(
         error,
         (field, message) => setError(field as keyof ClaimFormValues, { type: 'server', message }),
-        ['description', 'evidence'],
+        ['reason', 'evidence'],
       )
       if (error instanceof ApiError && error.isConflict) {
         setGeneralError('Data telah berubah di server. Silakan muat ulang halaman.')
@@ -103,10 +103,10 @@ export function ClaimFormPage() {
 
       <div className="lc-claim-form__report">
         <Link to={`/reports/${report.id}`} className="lc-claim-form__report-link">
-          {report.title}
+          {report.itemName}
         </Link>
         <p className="lc-claim-form__report-meta">
-          {report.category.name} &middot; {formatDateTime(report.eventAt)}
+          {report.category.name} &middot; {formatDateTime(report.occurredAt)}
         </p>
       </div>
 
@@ -133,14 +133,14 @@ export function ClaimFormPage() {
               htmlFor="claim-reason"
               required
               helper="Jelaskan mengapa barang ini milik Anda. Minimal 10 karakter."
-              error={formState.errors.description?.message}
+              error={formState.errors.reason?.message}
             >
               <Textarea
                 id="claim-reason"
                 rows={5}
                 placeholder="cth: Saya kehilangan dompet ini dan ada kartu identitas saya di dalamnya."
-                invalid={Boolean(formState.errors.description)}
-                {...register('description')}
+                invalid={Boolean(formState.errors.reason)}
+                {...register('reason')}
               />
             </FormField>
 

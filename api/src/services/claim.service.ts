@@ -17,6 +17,8 @@ function claimDto(claim: {
     id: number;
     type: string;
     itemName: string;
+    location: string;
+    occurredAt: Date;
     status: string;
     category: { id: number; name: string };
     images: { id: number; url: string }[];
@@ -29,6 +31,8 @@ function claimDto(claim: {
       id: claim.report.id,
       type: claim.report.type,
       itemName: claim.report.itemName,
+      location: claim.report.location,
+      occurredAt: claim.report.occurredAt.toISOString(),
       status: claim.report.status,
       category: claim.report.category,
       images: claim.report.images,

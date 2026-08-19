@@ -12,7 +12,7 @@ export const claimService = {
     return apiClient.post<ClaimSummary>(`/reports/${reportId}/claims`, input)
   },
   cancel(id: string) {
-    return apiClient.patch<{ id: string; status: ClaimStatus }>(`/claims/${id}/cancel`)
+    return apiClient.patch<{ id: number; status: ClaimStatus }>(`/claims/${id}/cancel`)
   },
   listByReport(reportId: string, params?: QueryParams) {
     return apiClient.getList<ClaimDetail>(`/reports/${reportId}/claims`, params)

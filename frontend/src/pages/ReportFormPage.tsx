@@ -27,7 +27,7 @@ import './ReportFormPage.css'
 
 const reportSchema = z.object({
   categoryId: z.string().min(1, 'Pilih kategori.'),
-  title: z
+  itemName: z
     .string()
     .trim()
     .min(2, 'Nama barang minimal 2 karakter.')
@@ -38,7 +38,7 @@ const reportSchema = z.object({
     .trim()
     .min(2, 'Lokasi minimal 2 karakter.')
     .max(255, 'Lokasi maksimal 255 karakter.'),
-  eventAt: z.string().min(1, 'Pilih tanggal dan waktu kejadian.'),
+  occurredAt: z.string().min(1, 'Pilih tanggal dan waktu kejadian.'),
 })
 
 type ReportFormValues = z.infer<typeof reportSchema>
@@ -56,7 +56,7 @@ export function ReportFormPage({ mode, type }: ReportFormPageProps) {
   const queryClient = useQueryClient()
   const [step, setStep] = useState<'form' | 'review'>('form')
   const [addImages, setAddImages] = useState<File[]>([])
-  const [deleteImageIds, setDeleteImageIds] = useState<string[]>([])
+  const [deleteImageIds, setDeleteImageIds] = useState<number[]>([])
   const [generalError, setGeneralError] = useState<string | null>(null)
 
   const reportQuery = useQuery({
@@ -76,7 +76,13 @@ export function ReportFormPage({ mode, type }: ReportFormPageProps) {
   const { register, handleSubmit, formState, reset, getValues, setError } =
     useForm<ReportFormValues>({
       resolver: zodResolver(reportSchema),
-      defaultValues: { categoryId: '', title: '', description: '', location: '', eventAt: '' },
+      defaultValues: {
+        categoryId: '',
+        itemName: '',
+        description: '',
+        location: '',
+        occurredAt: '',
+      },
     })
 
   const hasHydrated = useRef(false)
@@ -84,11 +90,11 @@ export function ReportFormPage({ mode, type }: ReportFormPageProps) {
     if (mode !== 'edit' || !report || hasHydrated.current) return
     hasHydrated.current = true
     reset({
-      categoryId: report.category.id,
-      title: report.title,
+      categoryId: String(report.category.id),
+      itemName: report.itemName,
       description: report.description,
       location: report.location,
-      eventAt: toDatetimeLocal(report.eventAt),
+      occurredAt: toDatetimeLocal(report.occurredAt),
     })
   }, [mode, report, reset])
 
@@ -98,24 +104,26 @@ export function ReportFormPage({ mode, type }: ReportFormPageProps) {
         throw new ApiError(null, 'BAD_REQUEST', 'Tipe laporan tidak diketahui.')
       }
       const input = {
-        ...(mode === 'create' ? { type: type as ReportType, categoryId: values.categoryId } : {}),
-        title: values.title,
+        ...(mode === 'create'
+          ? { type: type as ReportType, categoryId: Number(values.categoryId) }
+          : {}),
+        itemName: values.itemName,
         description: values.description,
         location: values.location,
-        eventAt: new Date(values.eventAt).toISOString(),
+        occurredAt: new Date(values.occurredAt).toISOString(),
       }
       const created =
         mode === 'create'
           ? await reportService.create(input as Parameters<typeof reportService.create>[0])
           : null
-      const reportId = mode === 'edit' ? id : created!.id
+      const reportId = mode === 'edit' ? id : String(created!.id)
 
       if (mode === 'edit') {
         await reportService.update(reportId, {
-          title: values.title,
+          itemName: values.itemName,
           description: values.description,
           location: values.location,
-          eventAt: new Date(values.eventAt).toISOString(),
+          occurredAt: new Date(values.occurredAt).toISOString(),
         })
       }
 
@@ -144,7 +152,7 @@ export function ReportFormPage({ mode, type }: ReportFormPageProps) {
       const message = mapFieldErrors(
         error,
         (field, message) => setError(field as keyof ReportFormValues, { type: 'server', message }),
-        ['categoryId', 'title', 'description', 'location', 'eventAt'],
+        ['categoryId', 'itemName', 'description', 'location', 'occurredAt'],
       )
       if (error instanceof ApiError && error.isConflict) {
         setGeneralError('Data telah berubah di server. Silakan muat ulang halaman.')
@@ -242,15 +250,15 @@ export function ReportFormPage({ mode, type }: ReportFormPageProps) {
 
             <FormField
               label="Nama Barang"
-              htmlFor="report-title"
+              htmlFor="report-item-name"
               required
-              error={formState.errors.title?.message}
+              error={formState.errors.itemName?.message}
             >
               <Input
-                id="report-title"
+                id="report-item-name"
                 placeholder="cth: Dompet kulit hitam"
-                invalid={Boolean(formState.errors.title)}
-                {...register('title')}
+                invalid={Boolean(formState.errors.itemName)}
+                {...register('itemName')}
               />
             </FormField>
 
@@ -286,15 +294,15 @@ export function ReportFormPage({ mode, type }: ReportFormPageProps) {
 
             <FormField
               label="Tanggal & Waktu Kejadian"
-              htmlFor="report-event-at"
+              htmlFor="report-occurred-at"
               required
-              error={formState.errors.eventAt?.message}
+              error={formState.errors.occurredAt?.message}
             >
               <Input
-                id="report-event-at"
+                id="report-occurred-at"
                 type="datetime-local"
-                invalid={Boolean(formState.errors.eventAt)}
-                {...register('eventAt')}
+                invalid={Boolean(formState.errors.occurredAt)}
+                {...register('occurredAt')}
               />
             </FormField>
           </div>
@@ -364,7 +372,8 @@ export function ReportFormPage({ mode, type }: ReportFormPageProps) {
         <ReviewStep
           values={getValues()}
           categoryName={
-            categories.find((category) => category.id === getValues('categoryId'))?.name ?? '-'
+            categories.find((category) => String(category.id) === getValues('categoryId'))?.name ??
+          '-'
           }
           imageCount={addImages.length}
           submitting={saveMutation.isPending}
@@ -402,7 +411,7 @@ function ReviewStep({
         </div>
         <div className="lc-report-form__review-item">
           <dt>Nama Barang</dt>
-          <dd>{values.title}</dd>
+          <dd>{values.itemName}</dd>
         </div>
         <div className="lc-report-form__review-item">
           <dt>Deskripsi</dt>
@@ -414,7 +423,7 @@ function ReviewStep({
         </div>
         <div className="lc-report-form__review-item">
           <dt>Tanggal & Waktu Kejadian</dt>
-          <dd>{formatDateTime(new Date(values.eventAt).toISOString())}</dd>
+          <dd>{formatDateTime(new Date(values.occurredAt).toISOString())}</dd>
         </div>
         <div className="lc-report-form__review-item">
           <dt>Foto</dt>

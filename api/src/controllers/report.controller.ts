@@ -21,6 +21,7 @@ export const reportController = {
       categoryId,
       status,
       location,
+      reporterId,
       sortBy,
       sortOrder,
     } = req.query;
@@ -32,6 +33,8 @@ export const reportController = {
       categoryId: categoryId ? Number(categoryId) : undefined,
       status: status as string | undefined,
       location: location as string | undefined,
+      reporterId: reporterId ? Number(reporterId) : undefined,
+      userId: req.user?.id,
       sortBy: sortBy as "createdAt" | "occurredAt" | undefined,
       sortOrder: sortOrder as "asc" | "desc" | undefined,
       isAdmin: isAdmin(req),
@@ -43,14 +46,14 @@ export const reportController = {
     const id = parseId(req.params.id);
     if (!id) throw ApiError.badRequest("ID tidak valid.");
     const report = await reportService.detail(id, req.user);
-    success(res, { report });
+    success(res, report);
   }),
 
   update: asyncHandler(async (req: Request, res: Response) => {
     const id = parseId(req.params.id);
     if (!id) throw ApiError.badRequest("ID tidak valid.");
     const report = await reportService.update(req.user!.id, req.user!.role, id, req.body);
-    success(res, { report });
+    success(res, report);
   }),
 
   remove: asyncHandler(async (req: Request, res: Response) => {

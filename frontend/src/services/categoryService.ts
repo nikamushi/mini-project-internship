@@ -5,16 +5,16 @@ export const categoryService = {
   list(params?: QueryParams) {
     return apiClient.get<Category[]>('/categories', params)
   },
-  detail(id: string): Promise<Category> {
+  detail(id: number): Promise<Category> {
     return apiClient.get<Category>(`/categories/${id}`)
   },
   create(input: CreateCategoryInput): Promise<Category> {
     return apiClient.post<Category>('/categories', input)
   },
-  update(id: string, input: UpdateCategoryInput): Promise<Category> {
+  update(id: number, input: UpdateCategoryInput): Promise<Category> {
     return apiClient.patch<Category>(`/categories/${id}`, input)
   },
-  remove(id: string): Promise<void> {
+  remove(id: number): Promise<void> {
     return apiClient.delete(`/categories/${id}`)
   },
 }

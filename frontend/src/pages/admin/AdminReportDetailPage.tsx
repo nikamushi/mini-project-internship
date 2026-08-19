@@ -137,7 +137,7 @@ export function AdminReportDetailPage() {
         <div className="lc-admin-page__detail-main">
           <section className="lc-admin-page__section">
             <h2 className="lc-admin-page__section-title">
-              {report.title}{' '}
+              {report.itemName}{' '}
               <Badge tone={report.type === 'LOST' ? 'danger' : 'success'}>
                 {report.type === 'LOST' ? 'Hilang' : 'Ditemukan'}
               </Badge>
@@ -153,7 +153,7 @@ export function AdminReportDetailPage() {
               </div>
               <div className="lc-admin-page__detail-item">
                 <dt>Waktu Kejadian</dt>
-                <dd>{formatDateTime(report.eventAt)}</dd>
+                <dd>{formatDateTime(report.occurredAt)}</dd>
               </div>
               <div className="lc-admin-page__detail-item">
                 <dt>Dibuat Pada</dt>
@@ -169,7 +169,7 @@ export function AdminReportDetailPage() {
                   <img
                     key={image.id}
                     src={image.url}
-                    alt={`Foto ${report.title}`}
+                    alt={`Foto ${report.itemName}`}
                     className="lc-admin-page__image"
                     loading="lazy"
                   />

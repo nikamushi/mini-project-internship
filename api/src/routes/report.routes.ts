@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { reportController } from "../controllers/report.controller";
-import { requireAuth } from "../middlewares/auth.middleware";
+import { optionalAuth, requireAuth } from "../middlewares/auth.middleware";
 import { uploadImages } from "../middlewares/upload.middleware";
 import { createReportSchema, updateReportSchema } from "../validators/report.validator";
 import { validate } from "../utils/validate";
 
 const router = Router();
 
-router.get("/", reportController.list);
+router.get("/", optionalAuth, reportController.list);
 router.post(
   "/",
   requireAuth,

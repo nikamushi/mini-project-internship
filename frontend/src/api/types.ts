@@ -20,7 +20,7 @@ export type SortOrder = 'asc' | 'desc'
  * ============================================================ */
 
 export interface User {
-  id: string
+  id: number
   name: string
   email: string
   role: UserRole
@@ -29,85 +29,88 @@ export interface User {
 }
 
 export interface CategoryRef {
-  id: string
+  id: number
   name: string
 }
 
 export interface Category {
-  id: string
+  id: number
   name: string
   description?: string | null
   isActive?: boolean
 }
 
 export interface ReporterRef {
-  id: string
+  id: number
   name: string
-}
-
-export interface ReportImageRef {
-  url: string
+  email?: string
 }
 
 export interface ReportImage {
-  id: string
+  id: number
   url: string
   sortOrder?: number
 }
 
 export interface ReportSummary {
-  id: string
+  id: number
   type: ReportType
-  title: string
+  itemName: string
   description: string
   category: CategoryRef
   location: string
-  eventAt: string
+  occurredAt: string
   status: ReportStatus
-  image: ReportImageRef | null
+  images: ReportImage[]
   createdAt: string
   adminNote?: string | null
 }
 
-export interface ReportDetail extends Omit<ReportSummary, 'image'> {
-  images: ReportImage[]
+export interface ReportDetail extends ReportSummary {
   reporter: ReporterRef
 }
 
 export interface ClaimSummary {
-  id: string
-  reportId: string
+  id: number
+  reportId: number
   status: ClaimStatus
   createdAt: string
 }
 
-export interface ClaimDetail extends ClaimSummary {
-  description: string
-  evidence?: string | null
-  reason?: string | null
-  reviewedAt?: string | null
-  claimant?: ReporterRef
-  report?: ReportSummary | null
+export interface ClaimReportRef {
+  id: number
+  type: ReportType
+  itemName: string
+  location: string
+  occurredAt: string
+  status: ReportStatus
+  category: CategoryRef
+  images: ReportImage[]
 }
 
-export type NotificationReferenceType = 'REPORT' | 'CLAIM' | 'SYSTEM'
+export interface ClaimDetail extends ClaimSummary {
+  reason: string
+  evidence?: string | null
+  reviewReason?: string | null
+  updatedAt: string
+  claimant?: ReporterRef
+  report?: ClaimReportRef | null
+}
 
 export interface Notification {
-  id: string
+  id: number
   type: string
   title: string
   message: string
-  referenceType: NotificationReferenceType
-  referenceId: string
-  readAt: string | null
+  isRead: boolean
   createdAt: string
 }
 
 export interface ActivityLog {
-  id: string
+  id: number
   actor: ReporterRef
   entityType: string
-  entityId: string
+  entityId: number
   action: string
   metadata: Record<string, unknown>
   createdAt: string
@@ -123,6 +126,7 @@ export interface AdminDashboard {
   lostReports: number
   foundReports: number
   pendingClaims: number
+  totalUsers: number
 }
 
 /* ============================================================
@@ -164,18 +168,18 @@ export interface ApiErrorBody {
 
 export interface CreateReportInput {
   type: ReportType
-  categoryId: string
-  title: string
+  categoryId: number
+  itemName: string
   description: string
   location: string
-  eventAt: string
+  occurredAt: string
 }
 
 export interface UpdateReportInput {
-  title?: string
+  itemName?: string
   description?: string
   location?: string
-  eventAt?: string
+  occurredAt?: string
 }
 
 export interface UpdateReportStatusInput {
@@ -184,7 +188,7 @@ export interface UpdateReportStatusInput {
 }
 
 export interface CreateClaimInput {
-  description: string
+  reason: string
   evidence?: string
 }
 
@@ -212,18 +216,13 @@ export interface ReportListParams {
   page?: number
   limit?: number
   type?: ReportType
-  categoryId?: string
+  categoryId?: number
   status?: ReportStatus
-  search?: string
+  q?: string
   location?: string
+  reporterId?: number
   sortBy?: string
   sortOrder?: SortOrder
-}
-
-export interface AdminReportListParams extends ReportListParams {
-  reporterId?: string
-  dateFrom?: string
-  dateTo?: string
 }
 
 export interface ClaimListParams {

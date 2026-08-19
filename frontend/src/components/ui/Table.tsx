@@ -15,7 +15,7 @@ export interface TableColumn<T> {
 export interface TableProps<T> {
   columns: TableColumn<T>[]
   rows: T[]
-  rowKey: (row: T) => string
+  rowKey: (row: T) => string | number
   sort?: { sortBy?: string; sortOrder?: SortOrder }
   onSort?: (sortBy: string) => void
   loading?: boolean

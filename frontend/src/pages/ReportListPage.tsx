@@ -60,9 +60,9 @@ export function ReportListPage() {
       reportService.list({
         page,
         limit: 12,
-        search: q || undefined,
+        q: q || undefined,
         type: type || undefined,
-        categoryId: categoryId || undefined,
+        categoryId: categoryId ? Number(categoryId) : undefined,
         status: status || undefined,
         location: location || undefined,
         sortBy: 'createdAt',

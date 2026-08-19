@@ -48,7 +48,7 @@ export function AdminClaimListPage() {
       render: (row) =>
         row.report ? (
           <Link to={`/admin/reports/${row.report.id}`} className="lc-admin-page__link">
-            {row.report.title}
+            {row.report.itemName}
           </Link>
         ) : (
           <span className="lc-admin-page__muted">Tidak tersedia</span>

@@ -60,7 +60,7 @@ async function parseBody(response: Response): Promise<unknown> {
   }
 }
 
-async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
+async function requestEnvelope<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const controller = new AbortController()
   const timer = window.setTimeout(() => controller.abort(), options.timeoutMs ?? API_TIMEOUT_MS)
 
@@ -104,17 +104,22 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
       throw apiError
     }
 
-    if (payload && typeof payload === 'object' && 'success' in payload) {
-      return (payload as ApiResponse<T>).data
-    }
     return payload as T
   } finally {
     window.clearTimeout(timer)
   }
 }
 
+async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
+  const payload = await requestEnvelope<ApiResponse<T> | T>(path, options)
+  if (payload && typeof payload === 'object' && 'success' in payload) {
+    return (payload as ApiResponse<T>).data
+  }
+  return payload as T
+}
+
 async function requestList<T>(path: string, params?: QueryParams): Promise<ApiListResult<T>> {
-  const envelope = await request<ApiListResponse<T>>(path, { method: 'GET', params })
+  const envelope = await requestEnvelope<ApiListResponse<T>>(path, { method: 'GET', params })
   return {
     data: envelope.data ?? [],
     meta: {

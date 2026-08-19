@@ -10,7 +10,7 @@ import type {
 } from '@/api/types'
 
 export interface CreateReportResult {
-  id: string
+  id: number
   type: ReportType
   status: ReportStatus
 }
@@ -25,8 +25,8 @@ export const reportService = {
   create(input: CreateReportInput): Promise<CreateReportResult> {
     return apiClient.post<CreateReportResult>('/reports', input)
   },
-  update(id: string, input: UpdateReportInput): Promise<ReportDetail> {
-    return apiClient.patch<ReportDetail>(`/reports/${id}`, input)
+  update(id: string, input: UpdateReportInput): Promise<void> {
+    return apiClient.patch<void>(`/reports/${id}`, input)
   },
   remove(id: string): Promise<void> {
     return apiClient.delete(`/reports/${id}`)
@@ -36,7 +36,7 @@ export const reportService = {
     formData.append('file', file)
     return apiClient.upload<ReportImage>(`/reports/${reportId}/images`, formData)
   },
-  deleteImage(reportId: string, imageId: string): Promise<void> {
+  deleteImage(reportId: string, imageId: number): Promise<void> {
     return apiClient.delete(`/reports/${reportId}/images/${imageId}`)
   },
 }

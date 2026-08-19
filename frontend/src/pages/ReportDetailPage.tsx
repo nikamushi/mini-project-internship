@@ -85,7 +85,7 @@ export function ReportDetailPage() {
                 {report.images[activeImage]?.url ? (
                   <img
                     src={report.images[activeImage].url}
-                    alt={report.title}
+                    alt={report.itemName}
                     className="lc-report-detail__image"
                   />
                 ) : null}
@@ -127,7 +127,7 @@ export function ReportDetailPage() {
             <StatusBadge status={report.status} kind="report" />
           </div>
 
-          <h1 className="lc-report-detail__title">{report.title}</h1>
+          <h1 className="lc-report-detail__title">{report.itemName}</h1>
           <p className="lc-report-detail__category">{report.category.name}</p>
 
           <p className="lc-report-detail__description">{report.description}</p>
@@ -145,7 +145,7 @@ export function ReportDetailPage() {
                 <CalendarDays size={16} aria-hidden="true" />
                 Waktu Kejadian
               </dt>
-              <dd>{formatDateTime(report.eventAt)}</dd>
+              <dd>{formatDateTime(report.occurredAt)}</dd>
             </div>
             <div className="lc-report-detail__fact">
               <dt>
@@ -189,7 +189,7 @@ export function ReportDetailPage() {
       <ConfirmDialog
         open={deleteOpen}
         title="Hapus laporan?"
-        message={`Laporan "${report.title}" akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.`}
+        message={`Laporan "${report.itemName}" akan dihapus. Tindakan ini tidak dapat dipulihkan.`}
         confirmLabel="Hapus"
         tone="danger"
         loading={deleteMutation.isPending}

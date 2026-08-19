@@ -53,7 +53,7 @@ export function MyClaimsPage() {
       render: (row) =>
         row.report ? (
           <Link to={`/reports/${row.report.id}`} className="lc-my-claims__title">
-            {row.report.title}
+            {row.report.itemName}
           </Link>
         ) : (
           <span className="lc-my-claims__title lc-my-claims__title--muted">Tidak tersedia</span>

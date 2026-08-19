@@ -22,11 +22,7 @@ declare global {
 
 export const requireAuth: RequestHandler = async (req, _res, next) => {
   try {
-    const cookieToken = req.cookies?.token;
-    const headerToken = req.headers.authorization?.startsWith("Bearer ")
-      ? req.headers.authorization.slice(7)
-      : undefined;
-    const token = cookieToken ?? headerToken;
+    const token = readToken(req);
     if (!token) throw ApiError.unauthorized();
 
     let payload: { sub: string };
@@ -43,6 +39,33 @@ export const requireAuth: RequestHandler = async (req, _res, next) => {
     next();
   } catch (err) {
     next(err);
+  }
+};
+
+function readToken(req: Parameters<RequestHandler>[0]): string | undefined {
+  const cookieToken = req.cookies?.token;
+  const headerToken = req.headers.authorization?.startsWith("Bearer ")
+    ? req.headers.authorization.slice(7)
+    : undefined;
+  return cookieToken ?? headerToken;
+}
+
+/**
+ * Menyisipkan user bila token valid, tanpa menolak request anonim.
+ * Dipakai pada endpoint publik yang menampilkan data milik user (mis. my reports).
+ */
+export const optionalAuth: RequestHandler = async (req, _res, next) => {
+  try {
+    const token = readToken(req);
+    if (!token) return next();
+    const payload = jwt.verify(token, env.jwtSecret) as { sub: string };
+    const user = await prisma.user.findUnique({ where: { id: Number(payload.sub) } });
+    if (user && user.isActive) {
+      req.user = { id: user.id, name: user.name, email: user.email, role: user.role };
+    }
+    next();
+  } catch {
+    next();
   }
 };
 

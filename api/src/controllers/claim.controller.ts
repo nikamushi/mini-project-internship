@@ -28,7 +28,7 @@ export const claimController = {
     const id = parseId(req.params.id);
     if (!id) throw ApiError.badRequest("ID tidak valid.");
     const claim = await claimService.detail(req.user!.id, req.user!.role, id);
-    success(res, { claim });
+    success(res, claim);
   }),
 
   cancel: asyncHandler(async (req: Request, res: Response) => {

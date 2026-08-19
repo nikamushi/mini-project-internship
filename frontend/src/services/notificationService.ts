@@ -5,8 +5,8 @@ export const notificationService = {
   list(params?: QueryParams) {
     return apiClient.getList<Notification>('/notifications', params)
   },
-  markRead(id: string) {
-    return apiClient.patch<{ id: string; readAt: string | null }>(`/notifications/${id}/read`)
+  markRead(id: number) {
+    return apiClient.patch<{ id: number; isRead: boolean }>(`/notifications/${id}/read`)
   },
   markAllRead(): Promise<void> {
     return apiClient.patch<void>('/notifications/read-all')

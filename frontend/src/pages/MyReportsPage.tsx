@@ -71,7 +71,7 @@ export function MyReportsPage() {
 
   const columns: TableColumn<ReportSummary>[] = [
     {
-      key: 'title',
+      key: 'itemName',
       header: 'Barang',
       render: (row) => (
         <div className="lc-my-reports__title-cell">
@@ -79,7 +79,7 @@ export function MyReportsPage() {
             {TYPE_LABEL[row.type]}
           </Badge>
           <Link to={`/reports/${row.id}`} className="lc-my-reports__title">
-            {row.title}
+            {row.itemName}
           </Link>
         </div>
       ),
@@ -90,9 +90,9 @@ export function MyReportsPage() {
       render: (row) => <StatusBadge status={row.status} kind="report" />,
     },
     {
-      key: 'eventAt',
+      key: 'occurredAt',
       header: 'Waktu Kejadian',
-      render: (row) => formatDateTime(row.eventAt),
+      render: (row) => formatDateTime(row.occurredAt),
     },
     {
       key: 'actions',

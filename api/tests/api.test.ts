@@ -271,10 +271,10 @@ describe("BE-056 Report", () => {
     await login(agent, "user@example.com");
     const res = await agent.get("/api/reports/1");
     expect(res.status).toBe(200);
-    expect(res.body.data.report.category).toHaveProperty("name");
-    expect(res.body.data.report.reporter).toHaveProperty("name");
-    expect(Array.isArray(res.body.data.report.images)).toBe(true);
-    expect(res.body.data.report).not.toHaveProperty("passwordHash");
+    expect(res.body.data.category).toHaveProperty("name");
+    expect(res.body.data.reporter).toHaveProperty("name");
+    expect(Array.isArray(res.body.data.images)).toBe(true);
+    expect(res.body.data).not.toHaveProperty("passwordHash");
   });
 
   it("user lain tidak bisa update report -> 403", async () => {
@@ -292,7 +292,7 @@ describe("BE-056 Report", () => {
     await login(agent, "user@example.com");
     const res = await agent.patch("/api/reports/2").send({ location: "Kantin Baru" });
     expect(res.status).toBe(200);
-    expect(res.body.data.report.location).toBe("Kantin Baru");
+    expect(res.body.data.location).toBe("Kantin Baru");
   });
 
   it("update tidak boleh mass assignment status", async () => {
@@ -353,7 +353,7 @@ describe("BE-056 Report", () => {
 
     const visible = await userAgent.get(`/api/reports/${id}`);
     expect(visible.status).toBe(200);
-    expect(visible.body.data.report.status).toBe("ACTIVE");
+    expect(visible.body.data.status).toBe("ACTIVE");
 
     const invalid = await adminAgent
       .patch(`/api/admin/reports/${id}/status`)
@@ -597,7 +597,7 @@ describe("BE-057 Claim", () => {
     expect(approved.status).toBe(200);
 
     const detail = await adminAgent.get(`/api/admin/reports/${reportId}`);
-    expect(detail.body.data.report.status).toBe("CLAIMED");
+    expect(detail.body.data.status).toBe("CLAIMED");
 
     const notif = await userAgent.get("/api/notifications");
     expect(notif.body.data.some((n: { type: string }) => n.type === "CLAIM_APPROVED")).toBe(true);
@@ -621,11 +621,11 @@ describe("BE-057 Claim", () => {
     expect(rejected.status).toBe(200);
 
     const detail = await userAgent.get(`/api/claims/${created.body.data.id}`);
-    expect(detail.body.data.claim.status).toBe("REJECTED");
-    expect(detail.body.data.claim.reviewReason).toBe("Bukti kepemilikan tidak mencukupi.");
+    expect(detail.body.data.status).toBe("REJECTED");
+    expect(detail.body.data.reviewReason).toBe("Bukti kepemilikan tidak mencukupi.");
 
     const report = await adminAgent.get(`/api/admin/reports/${reportId}`);
-    expect(report.body.data.report.status).toBe("ACTIVE");
+    expect(report.body.data.status).toBe("ACTIVE");
   });
 
   it("review claim sudah diproses -> 409", async () => {

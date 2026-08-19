@@ -60,10 +60,10 @@ export function ClaimDetailPage() {
         <div className="lc-claim-detail__report">
           <p className="lc-claim-detail__report-label">Laporan terkait</p>
           <Link to={`/reports/${report.id}`} className="lc-claim-detail__report-link">
-            {report.title}
+            {report.itemName}
           </Link>
           <p className="lc-claim-detail__report-meta">
-            {report.category.name} &middot; {formatDateTime(report.eventAt)}
+            {report.category.name} &middot; {formatDateTime(report.occurredAt)}
           </p>
         </div>
       ) : null}
@@ -71,7 +71,7 @@ export function ClaimDetailPage() {
       <dl className="lc-claim-detail__list">
         <div className="lc-claim-detail__item">
           <dt>Alasan Klaim</dt>
-          <dd>{claim.description}</dd>
+          <dd>{claim.reason}</dd>
         </div>
         {claim.evidence ? (
           <div className="lc-claim-detail__item">
@@ -87,20 +87,20 @@ export function ClaimDetailPage() {
             </dd>
           </div>
         ) : null}
-        {claim.reason ? (
+        {claim.reviewReason ? (
           <div className="lc-claim-detail__item">
             <dt>Alasan Keputusan</dt>
-            <dd>{claim.reason}</dd>
+            <dd>{claim.reviewReason}</dd>
           </div>
         ) : null}
         <div className="lc-claim-detail__item">
           <dt>Diajukan Pada</dt>
           <dd>{formatDateTime(claim.createdAt)}</dd>
         </div>
-        {claim.reviewedAt ? (
+        {claim.status === 'APPROVED' || claim.status === 'REJECTED' ? (
           <div className="lc-claim-detail__item">
             <dt>Ditinjau Pada</dt>
-            <dd>{formatDateTime(claim.reviewedAt)}</dd>
+            <dd>{formatDateTime(claim.updatedAt)}</dd>
           </div>
         ) : null}
       </dl>

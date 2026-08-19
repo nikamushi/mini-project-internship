@@ -41,6 +41,7 @@ export const reportQuerySchema = z.object({
   categoryId: z.coerce.number().int().positive().optional(),
   status: z.string().optional(),
   location: z.string().trim().optional(),
+  reporterId: z.coerce.number().int().positive().optional(),
   sortBy: z.enum(["createdAt", "occurredAt"]).optional(),
   sortOrder: z.enum(["asc", "desc"]).optional(),
 });

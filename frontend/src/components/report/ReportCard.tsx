@@ -18,10 +18,10 @@ const TYPE_LABEL: Record<ReportSummary['type'], string> = {
 export function ReportCard({ report }: ReportCardProps) {
   return (
     <article className="lc-report-card">
-      <Link to={`/reports/${report.id}`} className="lc-report-card__link" aria-label={report.title}>
+      <Link to={`/reports/${report.id}`} className="lc-report-card__link" aria-label={report.itemName}>
         <div className="lc-report-card__media">
-          {report.image?.url ? (
-            <img src={report.image.url} alt="" loading="lazy" className="lc-report-card__image" />
+          {report.images[0]?.url ? (
+            <img src={report.images[0].url} alt="" loading="lazy" className="lc-report-card__image" />
           ) : (
             <span className="lc-report-card__placeholder" aria-hidden="true">
               <ImageOff size={28} />
@@ -37,7 +37,7 @@ export function ReportCard({ report }: ReportCardProps) {
             <StatusBadge status={report.status} kind="report" size="sm" />
           </div>
 
-          <h3 className="lc-report-card__title">{report.title}</h3>
+          <h3 className="lc-report-card__title">{report.itemName}</h3>
 
           <p className="lc-report-card__meta">
             <MapPin size={14} aria-hidden="true" />
@@ -45,7 +45,7 @@ export function ReportCard({ report }: ReportCardProps) {
           </p>
           <p className="lc-report-card__meta">
             <CalendarDays size={14} aria-hidden="true" />
-            {formatDateTime(report.eventAt)}
+            {formatDateTime(report.occurredAt)}
           </p>
         </div>
       </Link>

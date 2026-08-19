@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { BellOff, CheckCheck, Megaphone, PackageSearch, UserCheck } from 'lucide-react'
 import { notificationService } from '@/services/notificationService'
@@ -11,24 +11,16 @@ import { ErrorState } from '@/components/ui/ErrorState'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { useToast } from '@/components/ui/useToast'
 import { formatDateTime } from '@/utils/format'
-import type { Notification, NotificationReferenceType } from '@/api/types'
+import type { Notification } from '@/api/types'
 import './NotificationCenterPage.css'
 
-const NOTIFICATION_ICONS: Record<NotificationReferenceType, typeof Megaphone> = {
-  REPORT: PackageSearch,
-  CLAIM: UserCheck,
-  SYSTEM: Megaphone,
-}
-
-function notificationTarget(notification: Notification): string | null {
-  if (!notification.referenceId) return null
-  if (notification.referenceType === 'REPORT') return `/reports/${notification.referenceId}`
-  if (notification.referenceType === 'CLAIM') return `/my-claims/${notification.referenceId}`
-  return null
+function notificationIcon(type: string): typeof Megaphone {
+  if (type.startsWith('CLAIM_')) return UserCheck
+  if (type.startsWith('REPORT_')) return PackageSearch
+  return Megaphone
 }
 
 export function NotificationCenterPage() {
-  const navigate = useNavigate()
   const toast = useToast()
   const queryClient = useQueryClient()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -48,13 +40,10 @@ export function NotificationCenterPage() {
   })
 
   const markReadMutation = useMutation({
-    mutationFn: (id: string) => notificationService.markRead(id),
-    onSuccess: (_data, id) => {
+    mutationFn: (id: number) => notificationService.markRead(id),
+    onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['notifications'] })
-      const target = notificationsQuery.data?.data.find((item) => item.id === id)
-      const route = target ? notificationTarget(target) : null
-      if (route) navigate(route)
-      else toast('Notifikasi ditandai sudah dibaca.', { tone: 'success' })
+      toast('Notifikasi ditandai sudah dibaca.', { tone: 'success' })
     },
   })
 
@@ -78,14 +67,13 @@ export function NotificationCenterPage() {
 
   const handleOpen = useCallback(
     (notification: Notification) => {
-      if (!notification.readAt) {
+      if (!notification.isRead) {
         markReadMutation.mutate(notification.id)
         return
       }
-      const route = notificationTarget(notification)
-      if (route) navigate(route)
+      toast('Notifikasi ditandai sudah dibaca.', { tone: 'success' })
     },
-    [markReadMutation, navigate],
+    [markReadMutation, toast],
   )
 
   const tabs: TabItem[] = [
@@ -142,8 +130,8 @@ export function NotificationCenterPage() {
         <>
           <ul className="lc-notifications__list">
             {notifications.map((notification) => {
-              const Icon = NOTIFICATION_ICONS[notification.referenceType] ?? Megaphone
-              const unread = !notification.readAt
+              const Icon = notificationIcon(notification.type)
+              const unread = !notification.isRead
               const content = (
                 <>
                   <span

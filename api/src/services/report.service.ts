@@ -112,11 +112,19 @@ export const reportService = {
     categoryId?: number;
     status?: string;
     location?: string;
+    reporterId?: number;
+    userId?: number;
     sortBy?: "createdAt" | "occurredAt";
     sortOrder?: "asc" | "desc";
     isAdmin: boolean;
   }) {
     const where: Prisma.ReportWhereInput = { deletedAt: null };
+    if (params.reporterId) {
+      if (!params.isAdmin && params.reporterId !== params.userId) {
+        throw ApiError.forbidden("Anda hanya dapat melihat laporan milik sendiri.");
+      }
+      where.reporterId = params.reporterId;
+    }
     if (params.q) {
       where.OR = [
         { itemName: { contains: params.q } },
@@ -127,12 +135,16 @@ export const reportService = {
     if (params.type) where.type = params.type;
     if (params.categoryId) where.categoryId = params.categoryId;
     if (params.location) where.location = { contains: params.location };
+    const ownReports =
+      params.reporterId !== undefined &&
+      params.userId !== undefined &&
+      params.reporterId === params.userId;
     if (params.status) {
-      where.status = params.isAdmin ? params.status : params.status;
-      if (!params.isAdmin && !VISIBLE_STATUSES.includes(params.status)) {
+      where.status = params.status;
+      if (!params.isAdmin && !ownReports && !VISIBLE_STATUSES.includes(params.status)) {
         where.status = "__HIDDEN__";
       }
-    } else if (!params.isAdmin) {
+    } else if (!params.isAdmin && !ownReports) {
       where.status = { in: VISIBLE_STATUSES };
     }
 

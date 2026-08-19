@@ -63,7 +63,7 @@ export function AdminReportListPage() {
         type: type || undefined,
         status: status || undefined,
         categoryId: categoryId || undefined,
-        search: search || undefined,
+        q: search || undefined,
         sortBy: 'createdAt',
         sortOrder: 'desc',
       }),
@@ -77,7 +77,7 @@ export function AdminReportListPage() {
 
   const columns: TableColumn<ReportDetail>[] = [
     {
-      key: 'title',
+      key: 'itemName',
       header: 'Barang',
       render: (row) => (
         <div className="lc-admin-page__table-title">
@@ -85,7 +85,7 @@ export function AdminReportListPage() {
             {row.type === 'LOST' ? 'Hilang' : 'Ditemukan'}
           </Badge>
           <Link to={`/admin/reports/${row.id}`} className="lc-admin-page__link">
-            {row.title}
+            {row.itemName}
           </Link>
         </div>
       ),
@@ -101,9 +101,9 @@ export function AdminReportListPage() {
       render: (row) => <StatusBadge status={row.status} kind="report" />,
     },
     {
-      key: 'eventAt',
+      key: 'occurredAt',
       header: 'Waktu Kejadian',
-      render: (row) => formatDateTime(row.eventAt),
+      render: (row) => formatDateTime(row.occurredAt),
     },
     {
       key: 'actions',

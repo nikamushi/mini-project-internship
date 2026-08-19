@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-# Local agent tooling
+# Local agent tooling (ECC harness)
 .ecc-harness/
-.opencode/
+.opencode/node_modules/
 
-# OS
-.DS_Store
-Thumbs.db
-=======
 # impeccable-ignore-start
 .impeccable/config.local.json
 .impeccable/hook.cache.json
@@ -62,4 +57,3 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 .DS_Store
->>>>>>> alil
