@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "@laf/api",
   "version": "1.0.0",
   "private": true,
   "description": "Sistem Manajemen Laporan Kehilangan Barang Kampus - Backend API",
@@ -34,6 +34,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@eslint/js": "^9.14.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",

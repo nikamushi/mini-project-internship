@@ -1,6 +1,8 @@
 # Local agent tooling (ECC harness)
 .ecc-harness/
-.opencode/node_modules/
+.opencode/
+opencode.json
+CONTRIBUTING.md
 
 # impeccable-ignore-start
 .impeccable/config.local.json
@@ -28,7 +30,10 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Vite build output
-frontend/dist/
+apps/web/dist/
+
+# Test coverage
+coverage/
 
 # TypeScript
 *.tsbuildinfo
@@ -41,9 +46,12 @@ frontend/dist/
 .env.production.local
 
 # Backend runtime
-backend/data/*.sqlite
-backend/data/*.sqlite-journal
-backend/uploads/
+apps/api/data/*.sqlite
+apps/api/data/*.sqlite-journal
+apps/api/data/*.sqlite-wal
+apps/api/data/*.sqlite-shm
+apps/api/uploads/
+apps/api/tests/.tmp/
 
 # IDE / Editor
 .vscode/

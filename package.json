@@ -1,0 +1,22 @@
+{
+  "name": "mini-project-internship",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistem Manajemen Laporan Kehilangan Barang Kampus (monorepo)",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:api": "pnpm --filter @laf/api dev",
+    "dev:web": "pnpm --filter @laf/web dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "format": "pnpm -r format",
+    "db:migrate": "pnpm --filter @laf/api prisma:migrate",
+    "db:seed": "pnpm --filter @laf/api db:seed",
+    "db:reset": "pnpm --filter @laf/api db:reset"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
