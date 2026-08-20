@@ -5,6 +5,7 @@ import { Eye } from 'lucide-react'
 import { userService } from '@/services/userService'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { Select } from '@/components/ui/Select'
+import { FilterBar } from '@/components/ui/FilterBar'
 import { Table, type TableColumn } from '@/components/ui/Table'
 import { Pagination } from '@/components/ui/Pagination'
 import { ErrorState } from '@/components/ui/ErrorState'
@@ -13,6 +14,7 @@ import { Avatar } from '@/components/ui/Avatar'
 import { formatDate } from '@/utils/format'
 import type { User } from '@/api/types'
 import './AdminPages.css'
+import './AdminUsersPage.css'
 
 export function AdminUsersPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -28,6 +30,19 @@ export function AdminUsersPage() {
       const next = new URLSearchParams(current)
       if (value) next.set(key, value)
       else next.delete(key)
+      next.delete('page')
+      return next
+    })
+  }
+
+  const hasActiveFilters = search !== '' || role !== '' || isActive !== ''
+  const resetFilters = () => {
+    setSearchInput('')
+    setSearchParams((current) => {
+      const next = new URLSearchParams(current)
+      next.delete('search')
+      next.delete('role')
+      next.delete('isActive')
       next.delete('page')
       return next
     })
@@ -117,13 +132,18 @@ export function AdminUsersPage() {
         </div>
       </section>
 
-      <div className="lc-admin-page__filters">
-        <SearchInput
-          value={searchInput}
-          onChange={setSearchInput}
-          placeholder="Cari nama atau email..."
-          aria-label="Cari pengguna"
-        />
+      <FilterBar
+        search={
+          <SearchInput
+            value={searchInput}
+            onChange={setSearchInput}
+            placeholder="Cari nama atau email..."
+            aria-label="Cari pengguna"
+          />
+        }
+        onReset={resetFilters}
+        hasActiveFilters={hasActiveFilters}
+      >
         <Select
           value={role}
           onChange={(event) => updateParam('role', event.target.value)}
@@ -142,7 +162,7 @@ export function AdminUsersPage() {
           <option value="true">Aktif</option>
           <option value="false">Nonaktif</option>
         </Select>
-      </div>
+      </FilterBar>
 
       {usersQuery.isError ? (
         <ErrorState title="Gagal memuat pengguna" onRetry={() => void usersQuery.refetch()} />

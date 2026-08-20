@@ -6,6 +6,7 @@ import { adminService } from '@/services/adminService'
 import { categoryService } from '@/services/categoryService'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { Select } from '@/components/ui/Select'
+import { FilterBar } from '@/components/ui/FilterBar'
 import { Table, type TableColumn } from '@/components/ui/Table'
 import { Pagination } from '@/components/ui/Pagination'
 import { ErrorState } from '@/components/ui/ErrorState'
@@ -44,6 +45,11 @@ export function AdminReportListPage() {
       next.delete('page')
       return next
     })
+  }
+
+  const resetFilters = () => {
+    setSearchParams(new URLSearchParams())
+    setSearchInput('')
   }
 
   useEffect(() => {
@@ -131,13 +137,18 @@ export function AdminReportListPage() {
         </div>
       </section>
 
-      <div className="lc-admin-page__filters">
-        <SearchInput
-          value={searchInput}
-          onChange={setSearchInput}
-          placeholder="Cari laporan..."
-          aria-label="Cari laporan"
-        />
+      <FilterBar
+        search={
+          <SearchInput
+            value={searchInput}
+            onChange={setSearchInput}
+            placeholder="Cari laporan..."
+            aria-label="Cari laporan"
+          />
+        }
+        onReset={resetFilters}
+        hasActiveFilters={Boolean(type || status || categoryId || search)}
+      >
         <Select
           value={type}
           onChange={(event) => updateParam('type', event.target.value)}
@@ -174,7 +185,7 @@ export function AdminReportListPage() {
             </option>
           ))}
         </Select>
-      </div>
+      </FilterBar>
 
       {reportsQuery.isError ? (
         <ErrorState title="Gagal memuat laporan" onRetry={() => void reportsQuery.refetch()} />

@@ -13,6 +13,7 @@ import { Card } from '@/components/ui/Card'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { ErrorState } from '@/components/ui/ErrorState'
 import './AdminPages.css'
+import './AdminDashboardPage.css'
 
 interface MetricCardProps {
   icon: React.ReactNode

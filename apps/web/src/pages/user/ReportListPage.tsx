@@ -6,6 +6,7 @@ import { SearchInput } from '@/components/ui/SearchInput'
 import { Select } from '@/components/ui/Select'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
+import { FilterBar } from '@/components/ui/FilterBar'
 import { Pagination } from '@/components/ui/Pagination'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -84,6 +85,26 @@ export function ReportListPage() {
     })
   }
 
+  const hasActiveFilters =
+    q !== '' || type !== '' || categoryId !== '' || status !== '' || location !== ''
+  const resetFilters = () => {
+    setDebouncedSearch('')
+    setSearchParams(
+      (current) => {
+        const next = new URLSearchParams(current)
+        next.delete('q')
+        next.delete('type')
+        next.delete('category')
+        next.delete('status')
+        next.delete('location')
+        next.delete('sort')
+        next.delete('page')
+        return next
+      },
+      { replace: true },
+    )
+  }
+
   const reports = reportsQuery.data?.data ?? []
   const meta = reportsQuery.data?.meta
 
@@ -100,18 +121,23 @@ export function ReportListPage() {
         </Link>
       </div>
 
-      <div className="lc-report-list__filters" aria-label="Filter laporan">
-        <SearchInput
-          value={debouncedSearch}
-          onChange={setDebouncedSearch}
-          placeholder="Cari nama barang, deskripsi, lokasi..."
-          aria-label="Cari laporan"
-        />
+      <FilterBar
+        ariaLabel="Filter laporan"
+        search={
+          <SearchInput
+            value={debouncedSearch}
+            onChange={setDebouncedSearch}
+            placeholder="Cari nama barang, deskripsi, lokasi..."
+            aria-label="Cari laporan"
+          />
+        }
+        onReset={resetFilters}
+        hasActiveFilters={hasActiveFilters}
+      >
         <Select
           value={type}
           onChange={(event) => updateParam('type', event.target.value)}
           aria-label="Tipe laporan"
-          className="lc-report-list__filter"
         >
           <option value="">Semua Tipe</option>
           <option value="LOST">Hilang</option>
@@ -121,7 +147,6 @@ export function ReportListPage() {
           value={categoryId}
           onChange={(event) => updateParam('category', event.target.value)}
           aria-label="Kategori"
-          className="lc-report-list__filter"
         >
           <option value="">Semua Kategori</option>
           {(categoriesQuery.data ?? []).map((category) => (
@@ -134,7 +159,6 @@ export function ReportListPage() {
           value={status}
           onChange={(event) => updateParam('status', event.target.value)}
           aria-label="Status"
-          className="lc-report-list__filter"
         >
           <option value="">Semua Status</option>
           {REPORT_STATUSES.map((item) => (
@@ -148,7 +172,6 @@ export function ReportListPage() {
           onChange={(event) => updateParam('location', event.target.value)}
           placeholder="Lokasi..."
           aria-label="Lokasi"
-          className="lc-report-list__filter"
         />
         <Button
           variant="outline"
@@ -163,7 +186,7 @@ export function ReportListPage() {
         >
           {sortOrder === 'desc' ? 'Terbaru' : 'Terlama'}
         </Button>
-      </div>
+      </FilterBar>
 
       {reportsQuery.isError ? (
         <ErrorState title="Gagal memuat laporan" onRetry={() => void reportsQuery.refetch()} />

@@ -20,10 +20,6 @@
   margin: 0;
 }
 
-.lc-my-reports__status-filter {
-  min-width: 200px;
-}
-
 .lc-my-reports__title-cell {
   display: flex;
   align-items: center;
@@ -41,10 +37,4 @@
 
 .lc-my-reports__title:hover {
   color: var(--color-primary);
-}
-
-@media (max-width: 767px) {
-  .lc-my-reports__status-filter {
-    width: 100%;
-  }
 }

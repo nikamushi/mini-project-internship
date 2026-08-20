@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { Eye, PackageSearch } from 'lucide-react'
-import { ReportFormPage } from '@/pages/ReportFormPage'
+import { ReportFormPage } from './ReportFormPage'
 import type { ReportType } from '@/api/types'
 import './CreateReportPage.css'
 

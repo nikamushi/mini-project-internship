@@ -14,14 +14,12 @@ export const categoryController = {
   }),
 
   update: asyncHandler(async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    const category = await categoryService.update(req.user!.id, id, req.body);
+    const category = await categoryService.update(req.user!.id, Number(req.params.id), req.body);
     success(res, category);
   }),
 
   deactivate: asyncHandler(async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    const category = await categoryService.deactivate(req.user!.id, id);
+    const category = await categoryService.deactivate(req.user!.id, Number(req.params.id));
     success(res, category);
   }),
 };

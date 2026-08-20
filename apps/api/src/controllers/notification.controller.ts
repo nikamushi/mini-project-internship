@@ -1,29 +1,28 @@
 import type { Request, Response } from "express";
 import { notificationService } from "../services/notification.service";
-import { ApiError } from "../utils/api-error";
-import { asyncHandler, listResponse, noContent, parseId, success } from "../utils/helpers";
+import { asyncHandler, listResponse, noContent, success } from "../utils/helpers";
+import { parseLimit, parseOptionalString, parsePage } from "../utils/query";
 
 export const notificationController = {
   list: asyncHandler(async (req: Request, res: Response) => {
-    const { page = 1, limit = 20, unread } = req.query;
+    const page = parsePage(req.query.page);
+    const limit = parseLimit(req.query.limit);
     const result = await notificationService.list(
       req.user!.id,
-      Number(page),
-      Math.min(Number(limit), 100),
-      unread as string | undefined
+      page,
+      limit,
+      parseOptionalString(req.query.unread)
     );
     listResponse(res, result.notifications, {
-      page: Number(page),
-      limit: Math.min(Number(limit), 100),
+      page,
+      limit,
       total: result.total,
-      totalPages: Math.ceil(result.total / Number(limit)),
+      totalPages: Math.ceil(result.total / limit),
     });
   }),
 
   markRead: asyncHandler(async (req: Request, res: Response) => {
-    const id = parseId(req.params.id);
-    if (!id) throw ApiError.badRequest("ID tidak valid.");
-    const result = await notificationService.markRead(req.user!.id, id);
+    const result = await notificationService.markRead(req.user!.id, Number(req.params.id));
     success(res, result);
   }),
 

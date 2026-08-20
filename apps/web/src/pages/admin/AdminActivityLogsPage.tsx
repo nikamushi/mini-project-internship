@@ -2,6 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { activityLogService } from '@/services/activityLogService'
 import { Select } from '@/components/ui/Select'
+import { FilterBar } from '@/components/ui/FilterBar'
 import { Table, type TableColumn } from '@/components/ui/Table'
 import { Pagination } from '@/components/ui/Pagination'
 import { ErrorState } from '@/components/ui/ErrorState'
@@ -38,6 +39,9 @@ export function AdminActivityLogsPage() {
       return next
     })
   }
+
+  const hasActiveFilters = entityType !== ''
+  const resetFilters = () => updateParam('entityType', '')
 
   const columns: TableColumn<ActivityLog>[] = [
     {
@@ -97,7 +101,7 @@ export function AdminActivityLogsPage() {
         </div>
       </section>
 
-      <div className="lc-admin-page__filters">
+      <FilterBar onReset={resetFilters} hasActiveFilters={hasActiveFilters}>
         <Select
           value={entityType}
           onChange={(event) => updateParam('entityType', event.target.value)}
@@ -110,7 +114,7 @@ export function AdminActivityLogsPage() {
             </option>
           ))}
         </Select>
-      </div>
+      </FilterBar>
 
       {logsQuery.isError ? (
         <ErrorState title="Gagal memuat log aktivitas" onRetry={() => void logsQuery.refetch()} />

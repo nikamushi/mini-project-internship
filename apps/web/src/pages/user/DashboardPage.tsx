@@ -67,18 +67,21 @@ export function DashboardPage() {
           label="Barang Hilang"
           value={lostQuery.data}
           loading={lostQuery.isPending}
+          tone="danger"
         />
         <StatCard
           icon={<PackageSearch size={20} />}
           label="Barang Ditemukan"
           value={foundQuery.data}
           loading={foundQuery.isPending}
+          tone="success"
         />
         <StatCard
           icon={<Bell size={20} />}
           label="Notifikasi Belum Dibaca"
           value={unreadQuery.data}
           loading={unreadQuery.isPending}
+          tone="info"
         />
       </section>
 
@@ -134,12 +137,16 @@ interface StatCardProps {
   label: string
   value?: number
   loading: boolean
+  tone?: 'primary' | 'danger' | 'success' | 'info'
 }
 
-function StatCard({ icon, label, value, loading }: StatCardProps) {
+function StatCard({ icon, label, value, loading, tone = 'primary' }: StatCardProps) {
   return (
     <div className="lc-dashboard__stat">
-      <span className="lc-dashboard__stat-icon" aria-hidden="true">
+      <span
+        className={['lc-dashboard__stat-icon', `lc-dashboard__stat-icon--${tone}`].join(' ')}
+        aria-hidden="true"
+      >
         {icon}
       </span>
       <div className="lc-dashboard__stat-body">

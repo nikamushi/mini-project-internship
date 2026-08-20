@@ -5,7 +5,7 @@ import { AuthLayout } from '@/components/layout/AuthLayout'
 import { DashboardLayout } from '@/components/layout/DashboardLayout'
 import { AdminLayout } from '@/components/layout/AdminLayout'
 import { Spinner } from '@/components/ui/Spinner'
-import { RouterErrorPage } from '@/pages/RouterErrorPage'
+import { RouterErrorPage } from '@/pages/shared/RouterErrorPage'
 import { ForbiddenPage } from '@/auth/guards'
 import { AdminRoute, GuestRoute, ProtectedRoute } from '@/auth/guards'
 
@@ -20,40 +20,42 @@ const RegisterPage = lazy(() =>
   import('@/pages/auth/RegisterPage').then((m) => ({ default: m.RegisterPage })),
 )
 const DashboardPage = lazy(() =>
-  import('@/pages/DashboardPage').then((m) => ({ default: m.DashboardPage })),
+  import('@/pages/user/DashboardPage').then((m) => ({ default: m.DashboardPage })),
 )
 const ReportListPage = lazy(() =>
-  import('@/pages/ReportListPage').then((m) => ({ default: m.ReportListPage })),
+  import('@/pages/user/ReportListPage').then((m) => ({ default: m.ReportListPage })),
 )
 const ReportDetailPage = lazy(() =>
-  import('@/pages/ReportDetailPage').then((m) => ({ default: m.ReportDetailPage })),
+  import('@/pages/user/ReportDetailPage').then((m) => ({ default: m.ReportDetailPage })),
 )
 const CreateReportPage = lazy(() =>
-  import('@/pages/CreateReportPage').then((m) => ({ default: m.CreateReportPage })),
+  import('@/pages/user/CreateReportPage').then((m) => ({ default: m.CreateReportPage })),
 )
 const ReportFormPage = lazy(() =>
-  import('@/pages/EditReportPage').then((m) => ({ default: m.EditReportPage })),
+  import('@/pages/user/EditReportPage').then((m) => ({ default: m.EditReportPage })),
 )
 const MyReportsPage = lazy(() =>
-  import('@/pages/MyReportsPage').then((m) => ({ default: m.MyReportsPage })),
+  import('@/pages/user/MyReportsPage').then((m) => ({ default: m.MyReportsPage })),
 )
 const ClaimFormPage = lazy(() =>
-  import('@/pages/ClaimFormPage').then((m) => ({ default: m.ClaimFormPage })),
+  import('@/pages/user/ClaimFormPage').then((m) => ({ default: m.ClaimFormPage })),
 )
 const MyClaimsPage = lazy(() =>
-  import('@/pages/MyClaimsPage').then((m) => ({ default: m.MyClaimsPage })),
+  import('@/pages/user/MyClaimsPage').then((m) => ({ default: m.MyClaimsPage })),
 )
 const ClaimDetailPage = lazy(() =>
-  import('@/pages/ClaimDetailPage').then((m) => ({ default: m.ClaimDetailPage })),
+  import('@/pages/user/ClaimDetailPage').then((m) => ({ default: m.ClaimDetailPage })),
 )
 const NotificationCenterPage = lazy(() =>
-  import('@/pages/NotificationCenterPage').then((m) => ({ default: m.NotificationCenterPage })),
+  import('@/pages/user/NotificationCenterPage').then((m) => ({
+    default: m.NotificationCenterPage,
+  })),
 )
 const ProfilePage = lazy(() =>
-  import('@/pages/ProfilePage').then((m) => ({ default: m.ProfilePage })),
+  import('@/pages/user/ProfilePage').then((m) => ({ default: m.ProfilePage })),
 )
 const NotFoundPage = lazy(() =>
-  import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
+  import('@/pages/shared/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 )
 const AdminDashboardPage = lazy(() =>
   import('@/pages/admin/AdminDashboardPage').then((m) => ({ default: m.AdminDashboardPage })),

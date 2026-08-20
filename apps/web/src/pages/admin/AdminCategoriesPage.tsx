@@ -18,6 +18,7 @@ import { ErrorState } from '@/components/ui/ErrorState'
 import { ApiError, mapFieldErrors } from '@/api/errors'
 import type { Category } from '@/api/types'
 import './AdminPages.css'
+import './AdminCategoriesPage.css'
 
 const categorySchema = z.object({
   name: z

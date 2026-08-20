@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import path from "node:path";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import express from "express";
+import express, { type NextFunction, type Request, type Response } from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -50,10 +50,16 @@ export function createApp(): express.Express {
     legacyHeaders: false,
   });
 
+  const mutationOnly = (limiter: ReturnType<typeof rateLimit>) =>
+    (req: Request, res: Response, next: NextFunction) => {
+      if (["GET", "HEAD", "OPTIONS"].includes(req.method)) return next();
+      return limiter(req, res, next);
+    };
+
   app.use("/api/auth/register", authLimiter);
   app.use("/api/auth/login", authLimiter);
-  app.use("/api/reports", mutationLimiter);
-  app.use("/api/reports/:reportId/claims", mutationLimiter);
+  app.use("/api/reports", mutationOnly(mutationLimiter));
+  app.use("/api/reports/:reportId/claims", mutationOnly(mutationLimiter));
   app.use(
     "/uploads",
     express.static(path.join(env.uploadDir), { dotfiles: "deny", fallthrough: true })
@@ -66,7 +72,7 @@ export function createApp(): express.Express {
   app.use("/api/auth", authRoutes);
   app.use("/api/categories", categoryRoutes);
   app.use("/api/reports", reportRoutes);
-  app.use("/api", claimRoutes);
+  app.use("/api/claims", claimRoutes);
   app.use("/api/notifications", notificationRoutes);
   app.use("/api/admin", adminRoutes);
 

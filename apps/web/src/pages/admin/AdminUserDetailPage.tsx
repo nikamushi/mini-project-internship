@@ -12,6 +12,7 @@ import { Avatar } from '@/components/ui/Avatar'
 import { useState } from 'react'
 import { formatDate } from '@/utils/format'
 import './AdminPages.css'
+import './AdminUserDetailPage.css'
 
 export function AdminUserDetailPage() {
   const { id = '' } = useParams()

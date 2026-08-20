@@ -33,6 +33,7 @@
   background-color: var(--color-surface-secondary);
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
 
@@ -128,6 +129,7 @@
   margin: 0;
   padding: var(--space-4);
   background-color: var(--color-surface-secondary);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--radius-md);
 }
 
@@ -136,6 +138,11 @@
   justify-content: space-between;
   align-items: baseline;
   gap: var(--space-3);
+  padding-block: var(--space-2);
+}
+
+.lc-report-detail__fact + .lc-report-detail__fact {
+  border-top: var(--border-width) solid var(--border-color);
 }
 
 .lc-report-detail__fact dt {

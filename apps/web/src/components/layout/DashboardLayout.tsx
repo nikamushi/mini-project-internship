@@ -1,19 +1,34 @@
-import { type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { Menu, Search } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import { Sidebar } from '@/components/layout/Sidebar'
 import { Container } from '@/components/layout/Container'
+import { MobileNavigation } from '@/components/layout/MobileNavigation'
+import { userNavItems, type NavItem } from '@/components/layout/navItems'
 import { notificationService } from '@/services/notificationService'
-import type { HeaderProps } from '@/components/layout/Header'
+import { useAuth } from '@/auth/useAuth'
+import type { SidebarProps } from '@/components/layout/Sidebar'
+import type { User } from '@/api/types'
 import './DashboardLayout.css'
 
-export interface DashboardLayoutProps extends Partial<HeaderProps> {
+export interface DashboardLayoutProps extends Partial<SidebarProps> {
   children?: ReactNode
+  navItems?: NavItem[]
+  user?: User | null
 }
 
-export function DashboardLayout({ children, ...headerProps }: DashboardLayoutProps) {
+export function DashboardLayout({
+  children,
+  navItems = userNavItems,
+  user: userOverride,
+  ...sidebarProps
+}: DashboardLayoutProps) {
+  const { currentUser, logout } = useAuth()
   const navigate = useNavigate()
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  const user = userOverride !== undefined ? userOverride : currentUser
 
   const unreadQuery = useQuery({
     queryKey: ['notifications', 'unread-count'],
@@ -21,17 +36,53 @@ export function DashboardLayout({ children, ...headerProps }: DashboardLayoutPro
     refetchInterval: 30_000,
   })
 
+  const unreadCount = unreadQuery.data?.meta.total ?? 0
+  const navItemsWithBadge = navItems.map((item) =>
+    item.to === '/notifications' ? { ...item, badge: unreadCount } : item,
+  )
+
+  const handleLogout = async () => {
+    setMobileOpen(false)
+    await logout()
+    navigate('/login', { replace: true })
+  }
+
   return (
-    <div className="lc-app">
-      <Header
-        {...headerProps}
-        notificationCount={unreadQuery.data?.meta.total ?? 0}
-        onNotificationsClick={() => navigate('/notifications')}
+    <div className="lc-app-dashboard">
+      <div className="lc-app-dashboard__mobile-bar">
+        <span className="lc-app-dashboard__mobile-logo" aria-hidden="true">
+          <Search size={20} />
+        </span>
+        <span className="lc-app-dashboard__mobile-title">Kehilangan Kampus</span>
+        <button
+          type="button"
+          className="lc-app-dashboard__menu-btn"
+          aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen(true)}
+        >
+          <Menu size={20} aria-hidden="true" />
+        </button>
+      </div>
+
+      <Sidebar
+        items={navItemsWithBadge}
+        user={user}
+        onLogout={() => void handleLogout()}
+        {...sidebarProps}
       />
-      <main className="lc-app__main">
-        <Container className="lc-dashboard">{children ?? <Outlet />}</Container>
+
+      <main className="lc-app-dashboard__main">
+        <Container className="lc-app-dashboard__content">{children ?? <Outlet />}</Container>
       </main>
-      <Footer />
+
+      <MobileNavigation
+        items={navItemsWithBadge}
+        user={user}
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        onLogout={user ? () => void handleLogout() : undefined}
+      />
     </div>
   )
 }

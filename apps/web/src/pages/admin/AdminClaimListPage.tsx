@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Eye } from 'lucide-react'
 import { adminService } from '@/services/adminService'
 import { Select } from '@/components/ui/Select'
+import { FilterBar } from '@/components/ui/FilterBar'
 import { Table, type TableColumn } from '@/components/ui/Table'
 import { Pagination } from '@/components/ui/Pagination'
 import { ErrorState } from '@/components/ui/ErrorState'
@@ -40,6 +41,9 @@ export function AdminClaimListPage() {
       return next
     })
   }
+
+  const hasActiveFilters = status !== ''
+  const resetFilters = () => updateParam('status', '')
 
   const columns: TableColumn<ClaimDetail>[] = [
     {
@@ -98,7 +102,7 @@ export function AdminClaimListPage() {
         </div>
       </section>
 
-      <div className="lc-admin-page__filters">
+      <FilterBar onReset={resetFilters} hasActiveFilters={hasActiveFilters}>
         <Select
           value={status}
           onChange={(event) => updateParam('status', event.target.value)}
@@ -111,7 +115,7 @@ export function AdminClaimListPage() {
             </option>
           ))}
         </Select>
-      </div>
+      </FilterBar>
 
       {claimsQuery.isError ? (
         <ErrorState title="Gagal memuat klaim" onRetry={() => void claimsQuery.refetch()} />

@@ -7,6 +7,7 @@ import { Tabs, type TabItem } from '@/components/ui/Tabs'
 import { Table, type TableColumn } from '@/components/ui/Table'
 import { Pagination } from '@/components/ui/Pagination'
 import { Select } from '@/components/ui/Select'
+import { FilterBar } from '@/components/ui/FilterBar'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { StatusBadge } from '@/components/ui/StatusBadge'
 import { Badge } from '@/components/ui/Badge'
@@ -69,6 +70,9 @@ export function MyReportsPage() {
     })
   }
 
+  const hasActiveFilters = status !== ''
+  const resetFilters = () => updateParam('status', '')
+
   const columns: TableColumn<ReportSummary>[] = [
     {
       key: 'itemName',
@@ -113,11 +117,13 @@ export function MyReportsPage() {
     <div className="lc-my-reports">
       <div className="lc-my-reports__header">
         <h1 className="lc-my-reports__title">Laporan Saya</h1>
+      </div>
+
+      <FilterBar onReset={resetFilters} hasActiveFilters={hasActiveFilters}>
         <Select
           value={status}
           onChange={(event) => updateParam('status', event.target.value)}
           aria-label="Filter status"
-          className="lc-my-reports__status-filter"
         >
           <option value="">Semua Status</option>
           {MY_REPORT_STATUSES.map((item) => (
@@ -129,7 +135,7 @@ export function MyReportsPage() {
             </option>
           ))}
         </Select>
-      </div>
+      </FilterBar>
 
       <Tabs
         items={tabs}

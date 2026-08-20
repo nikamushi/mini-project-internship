@@ -26,17 +26,6 @@
   margin: var(--space-1) 0 0;
 }
 
-.lc-admin-page__filters {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
-.lc-admin-page__filters > * {
-  min-width: 160px;
-}
-
 .lc-admin-page__table-wrap {
   overflow-x: auto;
 }
@@ -160,10 +149,6 @@
 }
 
 @media (max-width: 767px) {
-  .lc-admin-page__filters > * {
-    width: 100%;
-  }
-
   .lc-admin-page__detail-item {
     grid-template-columns: 1fr;
     gap: 0;

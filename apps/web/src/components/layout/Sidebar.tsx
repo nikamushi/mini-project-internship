@@ -9,9 +9,15 @@ export interface SidebarProps {
   items?: NavItem[]
   user?: User | null
   onLogout?: () => void
+  roleLabel?: string
 }
 
-export function Sidebar({ items = adminNavItems, user = null, onLogout }: SidebarProps) {
+export function Sidebar({
+  items = adminNavItems,
+  user = null,
+  onLogout,
+  roleLabel = 'Pengguna',
+}: SidebarProps) {
   return (
     <aside className="lc-sidebar">
       <div className="lc-sidebar__brand">
@@ -21,17 +27,23 @@ export function Sidebar({ items = adminNavItems, user = null, onLogout }: Sideba
         <span className="lc-sidebar__brand-text">Kehilangan Kampus</span>
       </div>
 
-      <nav className="lc-sidebar__nav" aria-label="Navigasi admin">
+      <nav className="lc-sidebar__nav" aria-label="Navigasi utama">
         {items.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
+            end={item.end}
             className={({ isActive }) =>
               ['lc-sidebar__link', isActive ? 'lc-sidebar__link--active' : ''].join(' ').trim()
             }
           >
             <item.icon size={20} aria-hidden="true" />
-            {item.label}
+            <span className="lc-sidebar__link-label">{item.label}</span>
+            {item.badge && item.badge > 0 ? (
+              <span className="lc-sidebar__badge" aria-label={`${item.badge} belum dibaca`}>
+                {item.badge > 9 ? '9+' : item.badge}
+              </span>
+            ) : null}
           </NavLink>
         ))}
       </nav>
@@ -41,7 +53,7 @@ export function Sidebar({ items = adminNavItems, user = null, onLogout }: Sideba
           <Avatar name={user.name} size="sm" />
           <div className="lc-sidebar__user-info">
             <span className="lc-sidebar__user-name">{user.name}</span>
-            <span className="lc-sidebar__user-role">Administrator</span>
+            <span className="lc-sidebar__user-role">{roleLabel}</span>
           </div>
           {onLogout ? (
             <button

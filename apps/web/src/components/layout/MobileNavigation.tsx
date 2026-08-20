@@ -108,13 +108,19 @@ export function MobileNavigation({
             <NavLink
               key={item.to}
               to={item.to}
+              end={item.end}
               className={({ isActive }) =>
                 ['lc-drawer__link', isActive ? 'lc-drawer__link--active' : ''].join(' ').trim()
               }
               onClick={onClose}
             >
               <item.icon size={20} aria-hidden="true" />
-              {item.label}
+              <span className="lc-drawer__link-label">{item.label}</span>
+              {item.badge && item.badge > 0 ? (
+                <span className="lc-drawer__badge" aria-label={`${item.badge} belum dibaca`}>
+                  {item.badge > 9 ? '9+' : item.badge}
+                </span>
+              ) : null}
             </NavLink>
           ))}
         </nav>

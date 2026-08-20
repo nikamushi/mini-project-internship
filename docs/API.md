@@ -7,7 +7,7 @@
 **API Style:** REST API  
 **Base URL:** `/api`  
 **Authentication:** Session-based Authentication  
-**Database:** PostgreSQL  
+**Database:** SQLite  
 **ORM:** Prisma  
 **Reference:** `PRD.md` + `Design.md` + `DesignSystem.md` + `Architecture.md` + `Database.md`
 
@@ -35,9 +35,9 @@ Service Layer
    │
    ▼
 Repository
-   │
+│
    ▼
-PostgreSQL
+SQLite
 ```
 
 API bertanggung jawab terhadap:
@@ -558,7 +558,6 @@ Endpoint:
 ```text
 GET    /api/categories
 POST   /api/categories
-GET    /api/categories/:id
 PATCH  /api/categories/:id
 DELETE /api/categories/:id
 ```
@@ -1225,7 +1224,6 @@ Response:
 Endpoint:
 
 ```text
-GET  /api/reports/:reportId/claims
 POST /api/reports/:reportId/claims
 
 GET  /api/claims
@@ -1723,7 +1721,7 @@ Query:
 
 # 71. API Route Structure
 
-Recommended:
+Struktur aktual:
 
 ```text
 /api
@@ -1735,26 +1733,44 @@ Recommended:
 │   └── me
 │
 ├── categories
-│   └── ...
+│   ├── GET    /            (publik, kategori aktif)
+│   ├── POST   /            (ADMIN)
+│   ├── PATCH  /:id         (ADMIN)
+│   └── DELETE /:id         (ADMIN, deactivate)
 │
 ├── reports
-│   ├── ...
-│   └── :id
-│       └── images
+│   ├── GET    /            (publik + filter)
+│   ├── POST   /            (upload images)
+│   ├── GET    /:id
+│   ├── PATCH  /:id
+│   ├── DELETE /:id         (soft delete)
+│   ├── POST   /:id/images
+│   ├── DELETE /:reportId/images/:imageId
+│   └── POST   /:reportId/claims   (sub-resource claim)
 │
 ├── claims
-│   └── ...
+│   ├── GET    /            (milik user, admin melihat semua)
+│   ├── GET    /:id
+│   └── PATCH  /:id/cancel
 │
 ├── notifications
-│   └── ...
+│   ├── GET    /
+│   ├── PATCH  /read-all
+│   └── PATCH  /:id/read
 │
-└── admin
-    ├── dashboard
-    ├── users
-    ├── reports
-    ├── claims
-    ├── categories
-    └── activity-logs
+└── admin  (semua route requireRole("ADMIN"))
+    ├── GET  /dashboard
+    ├── GET  /activity-logs
+    ├── GET  /users
+    ├── GET  /users/:id
+    ├── PATCH /users/:id/status
+    ├── GET  /reports
+    ├── GET  /reports/:id
+    ├── PATCH /reports/:id/status
+    ├── DELETE /reports/:id    (hard delete)
+    ├── GET  /claims
+    ├── GET  /claims/:id
+    └── PATCH /claims/:id/status
 ```
 
 ---
@@ -1783,7 +1799,7 @@ Repository
 Prisma
         │
         ▼
-PostgreSQL
+SQLite
 ```
 
 ---
@@ -2611,13 +2627,10 @@ GET   /api/admin/claims
 GET   /api/admin/claims/:id
 PATCH /api/admin/claims/:id/status
 
-GET    /api/admin/categories
-POST   /api/admin/categories
-PATCH  /api/admin/categories/:id
-DELETE /api/admin/categories/:id
-
 GET /api/admin/activity-logs
 ```
+
+> Catatan: manajemen kategori (POST/PATCH/DELETE) berada di `/api/categories` dengan `requireRole("ADMIN")` — tidak ada duplikat di `/api/admin/categories`.
 
 ---
 

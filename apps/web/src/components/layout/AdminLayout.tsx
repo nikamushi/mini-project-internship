@@ -56,6 +56,7 @@ export function AdminLayout({
         items={navItems}
         user={user}
         onLogout={() => void handleLogout()}
+        roleLabel="Administrator"
         {...sidebarProps}
       />
 
