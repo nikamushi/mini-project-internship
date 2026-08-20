@@ -65,7 +65,7 @@
   width: 72px;
   height: 56px;
   border-radius: var(--radius-sm);
-  border: 2px solid transparent;
+  border: var(--border-width-strong) solid transparent;
   overflow: hidden;
   opacity: 0.7;
   transition:

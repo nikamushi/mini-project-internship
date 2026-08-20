@@ -20,7 +20,17 @@
   margin: 0;
 }
 
-.lc-my-claims__title--muted {
+.lc-my-claims__link {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-heading);
+}
+
+.lc-my-claims__link:hover {
+  color: var(--color-primary);
+}
+
+.lc-my-claims__link--muted {
   color: var(--color-text-muted);
   font-weight: var(--font-weight-regular);
 }

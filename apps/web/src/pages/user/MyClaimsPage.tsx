@@ -52,11 +52,11 @@ export function MyClaimsPage() {
       header: 'Laporan',
       render: (row) =>
         row.report ? (
-          <Link to={`/reports/${row.report.id}`} className="lc-my-claims__title">
+          <Link to={`/reports/${row.report.id}`} className="lc-my-claims__link">
             {row.report.itemName}
           </Link>
         ) : (
-          <span className="lc-my-claims__title lc-my-claims__title--muted">Tidak tersedia</span>
+          <span className="lc-my-claims__link lc-my-claims__link--muted">Tidak tersedia</span>
         ),
     },
     {

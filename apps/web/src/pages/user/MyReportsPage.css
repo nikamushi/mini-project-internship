@@ -27,7 +27,8 @@
   min-width: 0;
 }
 
-.lc-my-reports__title {
+.lc-my-reports__link {
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-heading);
   overflow: hidden;
@@ -35,6 +36,6 @@
   white-space: nowrap;
 }
 
-.lc-my-reports__title:hover {
+.lc-my-reports__link:hover {
   color: var(--color-primary);
 }

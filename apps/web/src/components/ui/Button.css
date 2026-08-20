@@ -15,6 +15,7 @@
   transition:
     background-color var(--duration-micro) var(--ease-out),
     border-color var(--duration-micro) var(--ease-out),
+    box-shadow var(--duration-component) var(--ease-out),
     color var(--duration-micro) var(--ease-out);
 }
 
@@ -59,10 +60,12 @@
 .lc-btn--primary {
   background-color: var(--color-primary);
   color: var(--color-text-on-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .lc-btn--primary:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .lc-btn--primary:active:not(:disabled) {

@@ -12,7 +12,7 @@
   resize: vertical;
   transition:
     border-color var(--duration-micro) var(--ease-out),
-    box-shadow var(--duration-micro) var(--ease-out);
+    box-shadow var(--duration-component) var(--ease-out);
 }
 
 .lc-textarea::placeholder {
@@ -26,7 +26,7 @@
 .lc-textarea:focus-visible {
   outline: none;
   border-color: var(--border-color-focus);
-  box-shadow: 0 0 0 2px var(--color-primary-subtle-strong);
+  box-shadow: var(--focus-ring-shadow);
 }
 
 .lc-textarea:disabled {
@@ -41,5 +41,5 @@
 
 .lc-textarea--error:focus-visible {
   border-color: var(--color-danger-500);
-  box-shadow: 0 0 0 2px var(--color-danger-subtle-strong);
+  box-shadow: var(--focus-ring-shadow-error);
 }

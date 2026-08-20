@@ -12,17 +12,20 @@
   background-color: var(--color-surface);
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .lc-admin-dashboard__stat--link {
   transition:
     border-color var(--duration-micro) var(--ease-out),
-    box-shadow var(--duration-micro) var(--ease-out);
+    box-shadow var(--duration-component) var(--ease-out),
+    transform var(--duration-component) var(--ease-out);
 }
 
 .lc-admin-dashboard__stat--link:hover {
   border-color: var(--border-color-focus);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .lc-admin-dashboard__stat-icon {

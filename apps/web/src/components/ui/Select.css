@@ -27,7 +27,7 @@
 .lc-select:focus-visible {
   outline: none;
   border-color: var(--border-color-focus);
-  box-shadow: 0 0 0 2px var(--color-primary-subtle-strong);
+  box-shadow: var(--focus-ring-shadow);
 }
 
 .lc-select:disabled {

@@ -82,7 +82,7 @@ export function MyReportsPage() {
           <Badge tone={row.type === 'LOST' ? 'danger' : 'success'} size="sm">
             {TYPE_LABEL[row.type]}
           </Badge>
-          <Link to={`/reports/${row.id}`} className="lc-my-reports__title">
+          <Link to={`/reports/${row.id}`} className="lc-my-reports__link">
             {row.itemName}
           </Link>
         </div>
