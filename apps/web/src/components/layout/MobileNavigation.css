@@ -140,6 +140,9 @@
 }
 
 .lc-drawer__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
   padding: var(--space-3);
   border-top: var(--border-width) solid var(--border-color);
 }
@@ -159,6 +162,14 @@
 
 .lc-drawer__logout:hover {
   background-color: var(--color-danger-subtle);
+}
+
+.lc-drawer__theme-btn {
+  color: var(--color-text-secondary);
+}
+
+.lc-drawer__theme-btn:hover {
+  background-color: var(--color-surface-secondary);
 }
 
 @keyframes lc-drawer-in {

@@ -12,6 +12,8 @@ export interface SidebarProps {
   user?: User | null
   onLogout?: () => void
   roleLabel?: string
+  collapsed?: boolean
+  onToggleCollapsed?: () => void
 }
 
 export function Sidebar({
@@ -19,17 +21,28 @@ export function Sidebar({
   user = null,
   onLogout,
   roleLabel = 'Pengguna',
+  collapsed = false,
+  onToggleCollapsed,
 }: SidebarProps) {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <aside className="lc-sidebar">
-      <div className="lc-sidebar__brand">
+    <aside
+      className={['lc-sidebar', collapsed ? 'lc-sidebar--collapsed' : ''].join(' ').trim()}
+    >
+      <button
+        type="button"
+        className="lc-sidebar__brand"
+        aria-label={collapsed ? 'Buka sidebar' : 'Tutup sidebar'}
+        aria-expanded={!collapsed}
+        title={collapsed ? 'Buka sidebar' : 'Tutup sidebar'}
+        onClick={onToggleCollapsed}
+      >
         <span className="lc-sidebar__logo" aria-hidden="true">
           <Search size={20} />
         </span>
         <span className="lc-sidebar__brand-text">Kehilangan Kampus</span>
-      </div>
+      </button>
 
       <nav className="lc-sidebar__nav" aria-label="Navigasi utama">
         {items.map((item) => (
@@ -40,10 +53,11 @@ export function Sidebar({
             className={({ isActive }) =>
               ['lc-sidebar__link', isActive ? 'lc-sidebar__link--active' : ''].join(' ').trim()
             }
+            aria-label={collapsed ? item.label : undefined}
           >
             <item.icon size={20} aria-hidden="true" />
             <span className="lc-sidebar__link-label">{item.label}</span>
-            {item.badge && item.badge > 0 ? (
+            {!collapsed && item.badge && item.badge > 0 ? (
               <span className="lc-sidebar__badge" aria-label={`${item.badge} belum dibaca`}>
                 {item.badge > 9 ? '9+' : item.badge}
               </span>
@@ -53,34 +67,46 @@ export function Sidebar({
       </nav>
 
       {user ? (
-        <div className="lc-sidebar__user">
+        <div
+          className={
+            ['lc-sidebar__user', collapsed ? 'lc-sidebar__user--collapsed' : ''].join(' ').trim()
+          }
+        >
           <Avatar name={user.name} size="sm" />
-          <div className="lc-sidebar__user-info">
-            <span className="lc-sidebar__user-name">{user.name}</span>
-            <span className="lc-sidebar__user-role">{roleLabel}</span>
-          </div>
-          <Tooltip label={theme === 'dark' ? 'Mode terang' : 'Mode gelap'}>
-            <button
-              type="button"
-              className="lc-sidebar__logout lc-sidebar__theme-btn"
-              aria-label={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
-              onClick={toggleTheme}
-            >
-              {theme === 'dark' ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
-            </button>
-          </Tooltip>
-          {onLogout ? (
-            <Tooltip label="Keluar">
+          {!collapsed ? (
+            <div className="lc-sidebar__user-info">
+              <span className="lc-sidebar__user-name">{user.name}</span>
+              <span className="lc-sidebar__user-role">{roleLabel}</span>
+            </div>
+          ) : null}
+          <div className="lc-sidebar__user-actions">
+            <Tooltip label={theme === 'dark' ? 'Mode terang' : 'Mode gelap'}>
               <button
                 type="button"
-                className="lc-sidebar__logout"
-                aria-label="Keluar"
-                onClick={onLogout}
+                className="lc-sidebar__logout lc-sidebar__theme-btn"
+                aria-label={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
+                onClick={toggleTheme}
               >
-                <LogOut size={18} aria-hidden="true" />
+                {theme === 'dark' ? (
+                  <Sun size={18} aria-hidden="true" />
+                ) : (
+                  <Moon size={18} aria-hidden="true" />
+                )}
               </button>
             </Tooltip>
-          ) : null}
+            {onLogout ? (
+              <Tooltip label="Keluar">
+                <button
+                  type="button"
+                  className="lc-sidebar__logout"
+                  aria-label="Keluar"
+                  onClick={onLogout}
+                >
+                  <LogOut size={18} aria-hidden="true" />
+                </button>
+              </Tooltip>
+            ) : null}
+          </div>
         </div>
       ) : null}
     </aside>

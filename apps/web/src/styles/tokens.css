@@ -281,6 +281,7 @@
   /* Header / Sidebar */
   --header-height: 64px;
   --sidebar-width: 248px;
+  --sidebar-width-collapsed: 68px;
 
   /* Modal */
   --modal-radius: var(--radius-lg);

@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { Menu, Search } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
@@ -28,6 +28,13 @@ export function DashboardLayout({
   const { currentUser, logout } = useAuth()
   const navigate = useNavigate()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [collapsed, setCollapsed] = useState(
+    () => localStorage.getItem('sidebar-collapsed') === 'true',
+  )
+
+  useEffect(() => {
+    localStorage.setItem('sidebar-collapsed', String(collapsed))
+  }, [collapsed])
 
   const user = userOverride !== undefined ? userOverride : currentUser
 
@@ -75,6 +82,8 @@ export function DashboardLayout({
         items={navItemsWithBadge}
         user={user}
         onLogout={() => void handleLogout()}
+        collapsed={collapsed}
+        onToggleCollapsed={() => setCollapsed((value) => !value)}
         {...sidebarProps}
       />
 

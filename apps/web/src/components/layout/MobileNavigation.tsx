@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
-import { LogOut, Search, X } from 'lucide-react'
+import { LogOut, Moon, Search, Sun, X } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
 import { Tooltip } from '@/components/ui/Tooltip'
 import type { NavItem } from '@/components/layout/navItems'
+import { useTheme } from '@/hooks/useTheme'
 import type { User } from '@/api/types'
 import './MobileNavigation.css'
 
@@ -26,6 +27,7 @@ export function MobileNavigation({
 }: MobileNavigationProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const previouslyFocused = useRef<HTMLElement | null>(null)
+  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
     if (!open) return undefined
@@ -128,14 +130,29 @@ export function MobileNavigation({
           ))}
         </nav>
 
-        {onLogout ? (
-          <div className="lc-drawer__footer">
+        <div className="lc-drawer__footer">
+          <Tooltip label={theme === 'dark' ? 'Mode terang' : 'Mode gelap'}>
+            <button
+              type="button"
+              className="lc-drawer__logout lc-drawer__theme-btn"
+              aria-label={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
+              onClick={toggleTheme}
+            >
+              {theme === 'dark' ? (
+                <Sun size={20} aria-hidden="true" />
+              ) : (
+                <Moon size={20} aria-hidden="true" />
+              )}
+              {theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}
+            </button>
+          </Tooltip>
+          {onLogout ? (
             <button type="button" className="lc-drawer__logout" onClick={onLogout}>
               <LogOut size={20} aria-hidden="true" />
               Keluar
             </button>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
     </div>
   )
