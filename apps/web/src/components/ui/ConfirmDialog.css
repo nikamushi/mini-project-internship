@@ -12,7 +12,7 @@
   height: 40px;
   border-radius: var(--radius-full);
   background-color: var(--color-danger-subtle);
-  color: var(--color-danger-600);
+  color: var(--color-danger-text);
 }
 
 .lc-confirm__message {

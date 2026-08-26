@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Bell, LogOut, Menu, Search, User as UserIcon } from 'lucide-react'
+import { Bell, LogOut, Menu, Moon, Search, Sun, User as UserIcon } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
 import { MobileNavigation } from '@/components/layout/MobileNavigation'
 import { Avatar } from '@/components/ui/Avatar'
@@ -8,6 +8,7 @@ import { Dropdown } from '@/components/ui/Dropdown'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { userNavItems, type NavItem } from '@/components/layout/navItems'
 import { useAuth } from '@/auth/useAuth'
+import { useTheme } from '@/hooks/useTheme'
 import type { User } from '@/api/types'
 import './Header.css'
 
@@ -27,6 +28,7 @@ export function Header({
   const { currentUser, logout } = useAuth()
   const navigate = useNavigate()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   const user = userOverride !== undefined ? userOverride : currentUser
 
@@ -61,6 +63,17 @@ export function Header({
         </nav>
 
         <div className="lc-header__actions">
+          <Tooltip label={theme === 'dark' ? 'Mode terang' : 'Mode gelap'}>
+            <button
+              type="button"
+              className="lc-header__icon-btn"
+              aria-label={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
+              onClick={toggleTheme}
+            >
+              {theme === 'dark' ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
+            </button>
+          </Tooltip>
+
           {onNotificationsClick ? (
             <Tooltip label="Notifikasi">
               <button

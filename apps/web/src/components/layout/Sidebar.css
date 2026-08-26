@@ -6,8 +6,11 @@
   flex-direction: column;
   width: var(--sidebar-width);
   height: 100vh;
-  background-color: var(--color-surface);
+  background-color: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-right: var(--border-width) solid var(--border-color);
+  box-shadow: 4px 0 16px rgba(15, 23, 42, 0.03);
   flex-shrink: 0;
 }
 
@@ -93,7 +96,7 @@
 
 .lc-sidebar__link--active {
   background-color: var(--color-primary-subtle);
-  color: var(--color-primary-700);
+  color: var(--color-primary-text);
   box-shadow: inset 3px 0 0 var(--color-primary);
 }
 
@@ -127,7 +130,12 @@
 
 .lc-sidebar__logout:hover {
   background-color: var(--color-danger-subtle);
-  color: var(--color-danger-strong);
+  color: var(--color-danger-text);
+}
+
+.lc-sidebar__theme-btn:hover {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-heading);
 }
 
 .lc-sidebar__user-name {

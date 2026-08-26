@@ -11,5 +11,5 @@
 .lc-form-error__icon {
   flex-shrink: 0;
   margin-top: 2px;
-  color: var(--color-danger-600);
+  color: var(--color-danger-text);
 }

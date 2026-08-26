@@ -1,35 +1,26 @@
 .lc-report-card {
   background-color: var(--color-surface);
   border: var(--border-width) solid var(--border-color);
-  border-left-width: 3px;
-  border-radius: var(--radius-lg);
+  border-radius: var(--bento-radius);
   overflow: hidden;
+  box-shadow: var(--shadow-soft-raised);
   transition:
     border-color var(--duration-micro) var(--ease-out),
     box-shadow var(--duration-component) var(--ease-out),
     transform var(--duration-component) var(--ease-out);
 }
 
-.lc-report-card--lost {
-  border-left-color: var(--color-danger-400);
-}
-
-.lc-report-card--found {
-  border-left-color: var(--color-success-400);
-}
-
 .lc-report-card--lost:hover {
-  border-color: var(--color-danger-200);
-  box-shadow: var(--shadow-danger);
+  border-color: var(--color-danger-300);
 }
 
 .lc-report-card--found:hover {
-  border-color: var(--color-success-200);
-  box-shadow: var(--shadow-success);
+  border-color: var(--color-success-300);
 }
 
 .lc-report-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft-hover);
 }
 
 .lc-report-card__link {

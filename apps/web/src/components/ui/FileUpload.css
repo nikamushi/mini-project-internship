@@ -38,7 +38,7 @@
   height: 40px;
   border-radius: var(--radius-full);
   background-color: var(--color-primary-subtle);
-  color: var(--color-primary-600);
+  color: var(--color-primary-text);
 }
 
 .lc-upload__label {
@@ -102,5 +102,5 @@
 
 .lc-upload__remove:hover:not(:disabled) {
   background-color: var(--color-danger-subtle);
-  color: var(--color-danger-600);
+  color: var(--color-danger-text);
 }

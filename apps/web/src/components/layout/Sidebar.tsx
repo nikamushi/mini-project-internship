@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom'
-import { LogOut, Search } from 'lucide-react'
+import { LogOut, Moon, Search, Sun } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { adminNavItems, type NavItem } from '@/components/layout/navItems'
+import { useTheme } from '@/hooks/useTheme'
 import type { User } from '@/api/types'
 import './Sidebar.css'
 
@@ -19,6 +20,8 @@ export function Sidebar({
   onLogout,
   roleLabel = 'Pengguna',
 }: SidebarProps) {
+  const { theme, toggleTheme } = useTheme()
+
   return (
     <aside className="lc-sidebar">
       <div className="lc-sidebar__brand">
@@ -56,6 +59,16 @@ export function Sidebar({
             <span className="lc-sidebar__user-name">{user.name}</span>
             <span className="lc-sidebar__user-role">{roleLabel}</span>
           </div>
+          <Tooltip label={theme === 'dark' ? 'Mode terang' : 'Mode gelap'}>
+            <button
+              type="button"
+              className="lc-sidebar__logout lc-sidebar__theme-btn"
+              aria-label={theme === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'}
+              onClick={toggleTheme}
+            >
+              {theme === 'dark' ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+            </button>
+          </Tooltip>
           {onLogout ? (
             <Tooltip label="Keluar">
               <button

@@ -20,7 +20,7 @@
 }
 
 .lc-tabs__tab--active {
-  color: var(--color-primary-700);
+  color: var(--color-primary-text);
 }
 
 .lc-tabs__tab--active::after {

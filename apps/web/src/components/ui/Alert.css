@@ -30,7 +30,7 @@
 }
 
 .lc-alert--info .lc-alert__icon {
-  color: var(--color-info-600);
+  color: var(--color-info-text);
 }
 
 .lc-alert--success {
@@ -40,7 +40,7 @@
 }
 
 .lc-alert--success .lc-alert__icon {
-  color: var(--color-success-600);
+  color: var(--color-success-text);
 }
 
 .lc-alert--warning {
@@ -50,7 +50,7 @@
 }
 
 .lc-alert--warning .lc-alert__icon {
-  color: var(--color-warning-600);
+  color: var(--color-warning-text);
 }
 
 .lc-alert--danger {
@@ -60,5 +60,5 @@
 }
 
 .lc-alert--danger .lc-alert__icon {
-  color: var(--color-danger-600);
+  color: var(--color-danger-text);
 }

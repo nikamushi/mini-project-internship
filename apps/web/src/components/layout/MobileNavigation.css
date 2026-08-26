@@ -136,7 +136,7 @@
 
 .lc-drawer__link--active {
   background-color: var(--color-primary-subtle);
-  color: var(--color-primary-700);
+  color: var(--color-primary-text);
 }
 
 .lc-drawer__footer {

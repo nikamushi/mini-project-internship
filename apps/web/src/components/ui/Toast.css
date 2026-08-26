@@ -29,7 +29,7 @@
 }
 
 .lc-toast--success .lc-toast__icon {
-  color: var(--color-success-600);
+  color: var(--color-success-text);
 }
 
 .lc-toast--error {
@@ -37,7 +37,7 @@
 }
 
 .lc-toast--error .lc-toast__icon {
-  color: var(--color-danger-600);
+  color: var(--color-danger-text);
 }
 
 .lc-toast--info {
@@ -45,7 +45,7 @@
 }
 
 .lc-toast--info .lc-toast__icon {
-  color: var(--color-info-600);
+  color: var(--color-info-text);
 }
 
 .lc-toast--warning {
@@ -53,7 +53,7 @@
 }
 
 .lc-toast--warning .lc-toast__icon {
-  color: var(--color-warning-600);
+  color: var(--color-warning-text);
 }
 
 .lc-toast__icon {

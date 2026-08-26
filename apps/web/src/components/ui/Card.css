@@ -3,7 +3,7 @@
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-soft-raised);
 }
 
 /* Colored left-border accents */

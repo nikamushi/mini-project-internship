@@ -116,8 +116,8 @@ export function ReportListPage() {
           <h1 className="lc-report-list__title">Laporan</h1>
           <p className="lc-report-list__subtitle">Cari barang hilang atau ditemukan di kampus.</p>
         </div>
-        <Link to="/reports/create" className="lc-btn lc-btn--primary">
-          <PlusCircle size={18} aria-hidden="true" />
+        <Link to="/reports/create" className="lc-report-list__cta lc-btn lc-btn--primary lc-btn--lg">
+          <PlusCircle size={20} aria-hidden="true" />
           Buat Laporan
         </Link>
       </div>

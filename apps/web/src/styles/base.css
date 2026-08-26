@@ -169,7 +169,7 @@ fieldset {
 
 ::selection {
   background-color: var(--color-primary-subtle-strong);
-  color: var(--color-primary-700);
+  color: var(--color-primary-text);
 }
 
 /* ============================================================
