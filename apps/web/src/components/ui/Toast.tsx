@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
 import { AlertTriangle, CheckCircle2, Info, X, XCircle } from 'lucide-react'
 import { ToastContext, type ToastOptions, type ToastTone } from '@/components/ui/toastContext'
+import { Tooltip } from '@/components/ui/Tooltip'
 import './Toast.css'
 
 interface ToastItem {
@@ -53,14 +54,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             >
               <Icon size={18} className="lc-toast__icon" aria-hidden="true" />
               <span className="lc-toast__message">{item.message}</span>
-              <button
-                type="button"
-                className="lc-toast__close"
-                aria-label="Tutup notifikasi"
-                onClick={() => dismiss(item.id)}
-              >
-                <X size={16} aria-hidden="true" />
-              </button>
+              <Tooltip label="Tutup notifikasi">
+                <button
+                  type="button"
+                  className="lc-toast__close"
+                  aria-label="Tutup notifikasi"
+                  onClick={() => dismiss(item.id)}
+                >
+                  <X size={16} aria-hidden="true" />
+                </button>
+              </Tooltip>
             </div>
           )
         })}

@@ -102,7 +102,11 @@ export function AdminClaimListPage() {
         </div>
       </section>
 
-      <FilterBar onReset={resetFilters} hasActiveFilters={hasActiveFilters}>
+      <FilterBar
+        onReset={resetFilters}
+        hasActiveFilters={hasActiveFilters}
+        resultInfo={meta ? { total: meta.total, label: 'klaim' } : undefined}
+      >
         <Select
           value={status}
           onChange={(event) => updateParam('status', event.target.value)}

@@ -17,7 +17,12 @@ const TYPE_LABEL: Record<ReportSummary['type'], string> = {
 
 export function ReportCard({ report }: ReportCardProps) {
   return (
-    <article className="lc-report-card">
+    <article
+      className={[
+        'lc-report-card',
+        report.type === 'LOST' ? 'lc-report-card--lost' : 'lc-report-card--found',
+      ].join(' ')}
+    >
       <Link to={`/reports/${report.id}`} className="lc-report-card__link" aria-label={report.itemName}>
         <div className="lc-report-card__media">
           {report.images[0]?.url ? (

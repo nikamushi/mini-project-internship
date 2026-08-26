@@ -1,0 +1,49 @@
+.lc-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.lc-tooltip::after {
+  content: attr(data-tooltip) / '';
+  position: absolute;
+  z-index: var(--z-dropdown);
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-neutral-900);
+  color: var(--color-neutral-0);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  line-height: 1.4;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-micro) var(--ease-out);
+}
+
+.lc-tooltip--top::after {
+  bottom: calc(100% + var(--space-2));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lc-tooltip--bottom::after {
+  top: calc(100% + var(--space-2));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lc-tooltip--left::after {
+  right: calc(100% + var(--space-2));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lc-tooltip--right::after {
+  left: calc(100% + var(--space-2));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lc-tooltip:hover::after,
+.lc-tooltip:focus-within::after {
+  opacity: 1;
+}

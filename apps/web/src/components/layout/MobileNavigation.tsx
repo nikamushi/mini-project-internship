@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import { LogOut, Search, X } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
+import { Tooltip } from '@/components/ui/Tooltip'
 import type { NavItem } from '@/components/layout/navItems'
 import type { User } from '@/api/types'
 import './MobileNavigation.css'
@@ -83,14 +84,16 @@ export function MobileNavigation({
           <span className="lc-drawer__brand" aria-hidden="true">
             <Search size={20} />
           </span>
-          <button
-            type="button"
-            className="lc-drawer__close"
-            aria-label="Tutup menu"
-            onClick={onClose}
-          >
-            <X size={20} aria-hidden="true" />
-          </button>
+          <Tooltip label="Tutup menu">
+            <button
+              type="button"
+              className="lc-drawer__close"
+              aria-label="Tutup menu"
+              onClick={onClose}
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+          </Tooltip>
         </div>
 
         {user ? (

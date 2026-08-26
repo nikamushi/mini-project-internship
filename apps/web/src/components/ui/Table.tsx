@@ -102,6 +102,7 @@ export function Table<T>({
                   <td
                     key={column.key}
                     className={column.align ? `lc-table__align--${column.align}` : undefined}
+                    data-label={typeof column.header === 'string' ? column.header : undefined}
                   >
                     {renderCell(row, column)}
                   </td>

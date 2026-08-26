@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Container } from '@/components/layout/Container'
 import { MobileNavigation } from '@/components/layout/MobileNavigation'
+import { Tooltip } from '@/components/ui/Tooltip'
 import { userNavItems, type NavItem } from '@/components/layout/navItems'
 import { notificationService } from '@/services/notificationService'
 import { useAuth } from '@/auth/useAuth'
@@ -49,20 +50,25 @@ export function DashboardLayout({
 
   return (
     <div className="lc-app-dashboard">
+      <a href="#main-content" className="lc-skip-link">
+        Lewati ke konten utama
+      </a>
       <div className="lc-app-dashboard__mobile-bar">
         <span className="lc-app-dashboard__mobile-logo" aria-hidden="true">
           <Search size={20} />
         </span>
         <span className="lc-app-dashboard__mobile-title">Kehilangan Kampus</span>
-        <button
-          type="button"
-          className="lc-app-dashboard__menu-btn"
-          aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen(true)}
-        >
-          <Menu size={20} aria-hidden="true" />
-        </button>
+        <Tooltip label="Menu">
+          <button
+            type="button"
+            className="lc-app-dashboard__menu-btn"
+            aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen(true)}
+          >
+            <Menu size={20} aria-hidden="true" />
+          </button>
+        </Tooltip>
       </div>
 
       <Sidebar
@@ -72,7 +78,7 @@ export function DashboardLayout({
         {...sidebarProps}
       />
 
-      <main className="lc-app-dashboard__main">
+      <main id="main-content" tabIndex={-1} className="lc-app-dashboard__main">
         <Container className="lc-app-dashboard__content">{children ?? <Outlet />}</Container>
       </main>
 

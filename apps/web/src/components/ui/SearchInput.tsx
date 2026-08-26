@@ -1,6 +1,7 @@
 import { forwardRef } from 'react'
 import { Search, X } from 'lucide-react'
 import { Input, type InputProps } from '@/components/ui/Input'
+import { Tooltip } from '@/components/ui/Tooltip'
 import './SearchInput.css'
 
 export interface SearchInputProps extends Omit<
@@ -44,17 +45,19 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(functi
       />
       {loading ? <span className="lc-search__loader" aria-hidden="true" /> : null}
       {value && !disabled ? (
-        <button
-          type="button"
-          className="lc-search__clear"
-          aria-label="Hapus pencarian"
-          onClick={() => {
-            onChange('')
-            onClear?.()
-          }}
-        >
-          <X size={16} aria-hidden="true" />
-        </button>
+        <Tooltip label="Hapus pencarian">
+          <button
+            type="button"
+            className="lc-search__clear"
+            aria-label="Hapus pencarian"
+            onClick={() => {
+              onChange('')
+              onClear?.()
+            }}
+          >
+            <X size={16} aria-hidden="true" />
+          </button>
+        </Tooltip>
       ) : null}
     </div>
   )

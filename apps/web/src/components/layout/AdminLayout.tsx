@@ -4,6 +4,7 @@ import { Menu, Search } from 'lucide-react'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Container } from '@/components/layout/Container'
 import { MobileNavigation } from '@/components/layout/MobileNavigation'
+import { Tooltip } from '@/components/ui/Tooltip'
 import { adminNavItems, type NavItem } from '@/components/layout/navItems'
 import { useAuth } from '@/auth/useAuth'
 import type { SidebarProps } from '@/components/layout/Sidebar'
@@ -36,20 +37,25 @@ export function AdminLayout({
 
   return (
     <div className="lc-admin">
+      <a href="#main-content" className="lc-skip-link">
+        Lewati ke konten utama
+      </a>
       <div className="lc-admin__mobile-bar">
         <span className="lc-admin__mobile-logo" aria-hidden="true">
           <Search size={20} />
         </span>
         <span className="lc-admin__mobile-title">Kehilangan Kampus</span>
-        <button
-          type="button"
-          className="lc-admin__menu-btn"
-          aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen(true)}
-        >
-          <Menu size={20} aria-hidden="true" />
-        </button>
+        <Tooltip label="Menu">
+          <button
+            type="button"
+            className="lc-admin__menu-btn"
+            aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen(true)}
+          >
+            <Menu size={20} aria-hidden="true" />
+          </button>
+        </Tooltip>
       </div>
 
       <Sidebar
@@ -60,7 +66,7 @@ export function AdminLayout({
         {...sidebarProps}
       />
 
-      <main className="lc-admin__main">
+      <main id="main-content" tabIndex={-1} className="lc-admin__main">
         <Container className="lc-admin__content">{children ?? <Outlet />}</Container>
       </main>
 

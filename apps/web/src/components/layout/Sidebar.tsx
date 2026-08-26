@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { LogOut, Search } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
+import { Tooltip } from '@/components/ui/Tooltip'
 import { adminNavItems, type NavItem } from '@/components/layout/navItems'
 import type { User } from '@/api/types'
 import './Sidebar.css'
@@ -56,15 +57,16 @@ export function Sidebar({
             <span className="lc-sidebar__user-role">{roleLabel}</span>
           </div>
           {onLogout ? (
-            <button
-              type="button"
-              className="lc-sidebar__logout"
-              aria-label="Keluar"
-              title="Keluar"
-              onClick={onLogout}
-            >
-              <LogOut size={18} aria-hidden="true" />
-            </button>
+            <Tooltip label="Keluar">
+              <button
+                type="button"
+                className="lc-sidebar__logout"
+                aria-label="Keluar"
+                onClick={onLogout}
+              >
+                <LogOut size={18} aria-hidden="true" />
+              </button>
+            </Tooltip>
           ) : null}
         </div>
       ) : null}

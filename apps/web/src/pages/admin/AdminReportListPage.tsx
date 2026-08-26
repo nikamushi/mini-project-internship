@@ -148,6 +148,7 @@ export function AdminReportListPage() {
         }
         onReset={resetFilters}
         hasActiveFilters={Boolean(type || status || categoryId || search)}
+        resultInfo={meta ? { total: meta.total, label: 'laporan' } : undefined}
       >
         <Select
           value={type}

@@ -1,6 +1,7 @@
 .lc-report-card {
   background-color: var(--color-surface);
   border: var(--border-width) solid var(--border-color);
+  border-left-width: 3px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition:
@@ -9,9 +10,25 @@
     transform var(--duration-component) var(--ease-out);
 }
 
+.lc-report-card--lost {
+  border-left-color: var(--color-danger-400);
+}
+
+.lc-report-card--found {
+  border-left-color: var(--color-success-400);
+}
+
+.lc-report-card--lost:hover {
+  border-color: var(--color-danger-200);
+  box-shadow: var(--shadow-danger);
+}
+
+.lc-report-card--found:hover {
+  border-color: var(--color-success-200);
+  box-shadow: var(--shadow-success);
+}
+
 .lc-report-card:hover {
-  border-color: var(--border-color-focus);
-  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
 

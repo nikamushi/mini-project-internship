@@ -24,8 +24,8 @@
 }
 
 .lc-alert--info {
-  background-color: var(--color-info-subtle);
-  border-color: var(--color-info-100);
+  background: linear-gradient(135deg, var(--color-info-subtle), var(--color-info-subtle-strong));
+  border-color: var(--color-info-200);
   color: var(--color-info-strong);
 }
 
@@ -34,8 +34,8 @@
 }
 
 .lc-alert--success {
-  background-color: var(--color-success-subtle);
-  border-color: var(--color-success-100);
+  background: linear-gradient(135deg, var(--color-success-subtle), var(--color-success-subtle-strong));
+  border-color: var(--color-success-200);
   color: var(--color-success-strong);
 }
 
@@ -44,8 +44,8 @@
 }
 
 .lc-alert--warning {
-  background-color: var(--color-warning-subtle);
-  border-color: var(--color-warning-100);
+  background: linear-gradient(135deg, var(--color-warning-subtle), var(--color-warning-subtle-strong));
+  border-color: var(--color-warning-200);
   color: var(--color-warning-strong);
 }
 
@@ -54,8 +54,8 @@
 }
 
 .lc-alert--danger {
-  background-color: var(--color-danger-subtle);
-  border-color: var(--color-danger-100);
+  background: linear-gradient(135deg, var(--color-danger-subtle), var(--color-danger-subtle-strong));
+  border-color: var(--color-danger-200);
   color: var(--color-danger-strong);
 }
 

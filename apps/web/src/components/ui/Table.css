@@ -31,8 +31,12 @@
   border-bottom: none;
 }
 
+.lc-table tbody tr:nth-child(even) {
+  background-color: var(--color-surface-secondary);
+}
+
 .lc-table tbody tr:hover {
-  background-color: var(--color-background);
+  background-color: var(--color-primary-subtle);
 }
 
 .lc-table__align--center {
@@ -61,4 +65,52 @@
   text-align: center;
   color: var(--color-text-muted);
   padding: var(--space-9) var(--space-4);
+}
+
+/* ============================================================
+ * Responsive card fallback (mobile)
+ * ============================================================ */
+
+@media (max-width: 767px) {
+  .lc-table table,
+  .lc-table tbody,
+  .lc-table tr,
+  .lc-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .lc-table thead {
+    display: none;
+  }
+
+  .lc-table tbody tr {
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    padding: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-3);
+  }
+
+  .lc-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    border-bottom: var(--border-width) solid var(--border-color);
+    text-align: right;
+  }
+
+  .lc-table td::before {
+    content: attr(data-label);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    text-align: left;
+  }
+
+  .lc-table tbody tr:last-child td {
+    border-bottom: none;
+  }
 }

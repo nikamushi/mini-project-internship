@@ -6,6 +6,27 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Colored left-border accents */
+.lc-card--accent-primary {
+  border-left: 3px solid var(--color-primary-400);
+}
+
+.lc-card--accent-success {
+  border-left: 3px solid var(--color-success-400);
+}
+
+.lc-card--accent-warning {
+  border-left: 3px solid var(--color-warning-400);
+}
+
+.lc-card--accent-danger {
+  border-left: 3px solid var(--color-danger-400);
+}
+
+.lc-card--accent-info {
+  border-left: 3px solid var(--color-info-400);
+}
+
 .lc-card__header {
   display: flex;
   align-items: center;

@@ -143,6 +143,7 @@ export function AdminUsersPage() {
         }
         onReset={resetFilters}
         hasActiveFilters={hasActiveFilters}
+        resultInfo={meta ? { total: meta.total, label: 'pengguna' } : undefined}
       >
         <Select
           value={role}

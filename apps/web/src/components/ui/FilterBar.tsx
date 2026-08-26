@@ -9,6 +9,7 @@ export interface FilterBarProps {
   hasActiveFilters?: boolean
   resetLabel?: string
   ariaLabel?: string
+  resultInfo?: { total: number; label?: string }
   children?: ReactNode
 }
 
@@ -18,6 +19,7 @@ export function FilterBar({
   hasActiveFilters = false,
   resetLabel = 'Reset Filter',
   ariaLabel,
+  resultInfo,
   children,
 }: FilterBarProps) {
   const showTopRow = Boolean(search) || (Boolean(onReset) && hasActiveFilters)
@@ -41,6 +43,11 @@ export function FilterBar({
         </div>
       ) : null}
       {children ? <div className="lc-filter-bar__row-filters">{children}</div> : null}
+      {resultInfo ? (
+        <p className="lc-filter-bar__count" aria-live="polite" aria-atomic="true">
+          Ditemukan <strong>{resultInfo.total}</strong> {resultInfo.label ?? 'data'}
+        </p>
+      ) : null}
     </div>
   )
 }

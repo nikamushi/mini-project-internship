@@ -58,18 +58,18 @@
 
 /* Primary */
 .lc-btn--primary {
-  background-color: var(--color-primary);
+  background: var(--gradient-btn-primary);
   color: var(--color-text-on-primary);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .lc-btn--primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
-  box-shadow: var(--shadow-md);
+  background: var(--gradient-btn-primary-hover);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
 }
 
 .lc-btn--primary:active:not(:disabled) {
-  background-color: var(--color-primary-active);
+  background: var(--color-primary-active);
 }
 
 /* Secondary */
@@ -122,16 +122,18 @@
 
 /* Danger */
 .lc-btn--danger {
-  background-color: var(--color-danger);
+  background: var(--gradient-btn-danger);
   color: var(--color-text-inverse);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
 
 .lc-btn--danger:hover:not(:disabled) {
-  background-color: var(--color-danger-600);
+  background: var(--gradient-btn-danger-hover);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
 }
 
 .lc-btn--danger:active:not(:disabled) {
-  background-color: var(--color-danger-700);
+  background: var(--color-danger-700);
 }
 
 @media (max-width: 767px) {

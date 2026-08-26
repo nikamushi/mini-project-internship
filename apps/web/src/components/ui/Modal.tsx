@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, type ReactNode } from 'react'
 import { X } from 'lucide-react'
+import { Tooltip } from '@/components/ui/Tooltip'
 import './Modal.css'
 
 export type ModalSize = 'sm' | 'md' | 'lg'
@@ -114,19 +115,23 @@ export function Modal({
             <h3 id={titleId} className="lc-modal__title">
               {title}
             </h3>
-            <button type="button" className="lc-modal__close" aria-label="Tutup" onClick={onClose}>
-              <X size={20} aria-hidden="true" />
-            </button>
+            <Tooltip label="Tutup">
+              <button type="button" className="lc-modal__close" aria-label="Tutup" onClick={onClose}>
+                <X size={20} aria-hidden="true" />
+              </button>
+            </Tooltip>
           </div>
         ) : (
-          <button
-            type="button"
-            className="lc-modal__close lc-modal__close--bare"
-            aria-label="Tutup"
-            onClick={onClose}
-          >
-            <X size={20} aria-hidden="true" />
-          </button>
+          <Tooltip label="Tutup" className="lc-modal__close-wrap">
+            <button
+              type="button"
+              className="lc-modal__close lc-modal__close--bare"
+              aria-label="Tutup"
+              onClick={onClose}
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+          </Tooltip>
         )}
         <div id={descriptionId} className="lc-modal__body">
           {children}

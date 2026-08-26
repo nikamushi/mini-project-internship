@@ -35,6 +35,16 @@
   flex: 0 0 auto;
 }
 
+.lc-filter-bar__count {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.lc-filter-bar__count strong {
+  color: var(--color-text-heading);
+}
+
 @media (max-width: 767px) {
   .lc-filter-bar__row-filters > * {
     min-width: 100%;

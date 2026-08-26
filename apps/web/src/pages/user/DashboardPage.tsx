@@ -142,7 +142,7 @@ interface StatCardProps {
 
 function StatCard({ icon, label, value, loading, tone = 'primary' }: StatCardProps) {
   return (
-    <div className="lc-dashboard__stat">
+    <div className={['lc-dashboard__stat', `lc-dashboard__stat--${tone}`].join(' ')}>
       <span
         className={['lc-dashboard__stat-icon', `lc-dashboard__stat-icon--${tone}`].join(' ')}
         aria-hidden="true"

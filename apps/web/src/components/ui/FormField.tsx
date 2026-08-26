@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react'
+import { Children, cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react'
 import { FormError } from '@/components/ui/FormError'
 import './FormField.css'
 
@@ -24,6 +24,17 @@ export function FormField({
   const errorId = htmlFor ? `${htmlFor}-error` : undefined
   const helperId = htmlFor ? `${htmlFor}-helper` : undefined
 
+  const content =
+    required && children !== null && children !== undefined
+      ? Children.map(children, (child) =>
+          isValidElement(child)
+            ? cloneElement(child as ReactElement<{ 'aria-required'?: boolean }>, {
+                'aria-required': true,
+              })
+            : child,
+        )
+      : children
+
   return (
     <div className={['lc-form-field', className ?? ''].join(' ').trim()}>
       {label ? (
@@ -37,7 +48,7 @@ export function FormField({
           ) : null}
         </label>
       ) : null}
-      {children}
+      {content}
       {helper && !error ? (
         <p className="lc-form-field__helper" id={helperId}>
           {helper}

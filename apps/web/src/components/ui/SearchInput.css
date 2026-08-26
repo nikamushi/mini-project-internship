@@ -18,11 +18,18 @@
   padding-right: var(--space-8);
 }
 
-.lc-search__clear {
+.lc-search .lc-tooltip {
   position: absolute;
   top: 50%;
   right: var(--space-2);
   transform: translateY(-50%);
+}
+
+.lc-search .lc-search__clear {
+  position: static;
+}
+
+.lc-search__clear {
   display: inline-flex;
   align-items: center;
   justify-content: center;

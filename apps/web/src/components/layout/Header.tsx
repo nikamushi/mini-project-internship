@@ -5,6 +5,7 @@ import { Container } from '@/components/layout/Container'
 import { MobileNavigation } from '@/components/layout/MobileNavigation'
 import { Avatar } from '@/components/ui/Avatar'
 import { Dropdown } from '@/components/ui/Dropdown'
+import { Tooltip } from '@/components/ui/Tooltip'
 import { userNavItems, type NavItem } from '@/components/layout/navItems'
 import { useAuth } from '@/auth/useAuth'
 import type { User } from '@/api/types'
@@ -61,19 +62,21 @@ export function Header({
 
         <div className="lc-header__actions">
           {onNotificationsClick ? (
-            <button
-              type="button"
-              className="lc-header__icon-btn"
-              aria-label={`Notifikasi${notificationCount > 0 ? ` (${notificationCount} belum dibaca)` : ''}`}
-              onClick={onNotificationsClick}
-            >
-              <Bell size={20} aria-hidden="true" />
-              {notificationCount > 0 ? (
-                <span className="lc-header__badge" aria-hidden="true">
-                  {notificationCount > 9 ? '9+' : notificationCount}
-                </span>
-              ) : null}
-            </button>
+            <Tooltip label="Notifikasi">
+              <button
+                type="button"
+                className="lc-header__icon-btn"
+                aria-label={`Notifikasi${notificationCount > 0 ? ` (${notificationCount} belum dibaca)` : ''}`}
+                onClick={onNotificationsClick}
+              >
+                <Bell size={20} aria-hidden="true" />
+                {notificationCount > 0 ? (
+                  <span className="lc-header__badge" aria-hidden="true">
+                    {notificationCount > 9 ? '9+' : notificationCount}
+                  </span>
+                ) : null}
+              </button>
+            </Tooltip>
           ) : null}
 
           {user ? (
@@ -105,15 +108,17 @@ export function Header({
             </Link>
           )}
 
-          <button
-            type="button"
-            className="lc-header__icon-btn lc-header__menu-btn"
-            aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen(true)}
-          >
-            <Menu size={20} aria-hidden="true" />
-          </button>
+          <Tooltip label="Menu">
+            <button
+              type="button"
+              className="lc-header__icon-btn lc-header__menu-btn"
+              aria-label={mobileOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi'}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen(true)}
+            >
+              <Menu size={20} aria-hidden="true" />
+            </button>
+          </Tooltip>
         </div>
       </Container>
 

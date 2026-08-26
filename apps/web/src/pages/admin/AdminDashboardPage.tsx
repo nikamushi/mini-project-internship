@@ -21,12 +21,24 @@ interface MetricCardProps {
   value?: number
   loading: boolean
   to?: string
+  tone?: 'primary' | 'warning' | 'info' | 'success' | 'danger'
 }
 
-function MetricCard({ icon, label, value, loading, to }: MetricCardProps) {
+function MetricCard({ icon, label, value, loading, to, tone = 'primary' }: MetricCardProps) {
+  const statClassName = [
+    'lc-admin-dashboard__stat',
+    `lc-admin-dashboard__stat--${tone}`,
+    ...(to ? ['lc-admin-dashboard__stat--link'] : []),
+  ].join(' ')
   const body = (
     <>
-      <span className="lc-admin-dashboard__stat-icon" aria-hidden="true">
+      <span
+        className={[
+          'lc-admin-dashboard__stat-icon',
+          `lc-admin-dashboard__stat-icon--${tone}`,
+        ].join(' ')}
+        aria-hidden="true"
+      >
         {icon}
       </span>
       <div className="lc-admin-dashboard__stat-body">
@@ -38,11 +50,11 @@ function MetricCard({ icon, label, value, loading, to }: MetricCardProps) {
     </>
   )
   return to ? (
-    <Link to={to} className="lc-admin-dashboard__stat lc-admin-dashboard__stat--link">
+    <Link to={to} className={statClassName}>
       {body}
     </Link>
   ) : (
-    <div className="lc-admin-dashboard__stat">{body}</div>
+    <div className={statClassName}>{body}</div>
   )
 }
 
@@ -79,6 +91,7 @@ export function AdminDashboardPage() {
           value={data?.reports.total}
           loading={loading}
           to="/admin/reports"
+          tone="primary"
         />
         <MetricCard
           icon={<Clock size={20} />}
@@ -86,6 +99,7 @@ export function AdminDashboardPage() {
           value={data?.reports.pendingVerification}
           loading={loading}
           to="/admin/reports?status=PENDING_VERIFICATION"
+          tone="warning"
         />
         <MetricCard
           icon={<Search size={20} />}
@@ -93,6 +107,7 @@ export function AdminDashboardPage() {
           value={data?.reports.active}
           loading={loading}
           to="/admin/reports?status=ACTIVE"
+          tone="info"
         />
         <MetricCard
           icon={<PackageCheck size={20} />}
@@ -100,6 +115,7 @@ export function AdminDashboardPage() {
           value={data?.reports.completed}
           loading={loading}
           to="/admin/reports?status=COMPLETED"
+          tone="success"
         />
       </section>
 
@@ -110,6 +126,7 @@ export function AdminDashboardPage() {
           value={data?.lostReports}
           loading={loading}
           to="/admin/reports?type=LOST"
+          tone="danger"
         />
         <MetricCard
           icon={<PackageSearch size={20} />}
@@ -117,6 +134,7 @@ export function AdminDashboardPage() {
           value={data?.foundReports}
           loading={loading}
           to="/admin/reports?type=FOUND"
+          tone="success"
         />
         <MetricCard
           icon={<ScrollText size={20} />}
@@ -124,6 +142,7 @@ export function AdminDashboardPage() {
           value={data?.pendingClaims}
           loading={loading}
           to="/admin/claims?status=PENDING"
+          tone="warning"
         />
       </section>
 
