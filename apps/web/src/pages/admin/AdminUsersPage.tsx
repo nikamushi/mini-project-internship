@@ -30,7 +30,7 @@ export function AdminUsersPage() {
       const next = new URLSearchParams(current)
       if (value) next.set(key, value)
       else next.delete(key)
-      next.delete('page')
+      if (key !== 'page') next.delete('page')
       return next
     })
   }
@@ -49,6 +49,7 @@ export function AdminUsersPage() {
   }
 
   useEffect(() => {
+    if (searchInput.trim() === search) return
     const timer = window.setTimeout(() => {
       updateParam('search', searchInput.trim())
     }, 400)

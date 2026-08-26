@@ -28,7 +28,8 @@ export function paginationMeta(
   total: number;
   totalPages: number;
 } {
-  return { page, limit, total, totalPages: Math.ceil(total / limit) };
+  const totalPages = Math.max(1, Math.ceil(total / limit));
+  return { page: Math.min(page, totalPages), limit, total, totalPages };
 }
 
 export function parseBoolean(value: string | undefined): boolean | undefined {

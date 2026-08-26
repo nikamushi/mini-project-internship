@@ -35,7 +35,7 @@ export function AdminActivityLogsPage() {
       const next = new URLSearchParams(current)
       if (value) next.set(key, value)
       else next.delete(key)
-      next.delete('page')
+      if (key !== 'page') next.delete('page')
       return next
     })
   }

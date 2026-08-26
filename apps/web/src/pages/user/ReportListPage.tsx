@@ -32,6 +32,7 @@ export function ReportListPage() {
   const sortOrder = searchParams.get('sort') === 'asc' ? 'asc' : 'desc'
 
   useEffect(() => {
+    if (debouncedSearch === q) return
     const timer = window.setTimeout(() => {
       setSearchParams(
         (current) => {
@@ -48,7 +49,7 @@ export function ReportListPage() {
       )
     }, 400)
     return () => window.clearTimeout(timer)
-  }, [debouncedSearch, setSearchParams])
+  }, [debouncedSearch, q, setSearchParams])
 
   const categoriesQuery = useQuery({
     queryKey: ['categories'],
@@ -80,7 +81,7 @@ export function ReportListPage() {
       } else {
         next.delete(key)
       }
-      next.delete('page')
+      if (key !== 'page') next.delete('page')
       return next
     })
   }
